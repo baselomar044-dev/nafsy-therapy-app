@@ -1,0 +1,3521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>نفسي - معالجك النفسي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --bg-primary: #0d0d0d;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --accent-blue: #4a9eff;
+            --accent-blue-dark: #3a7ecc;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            overflow: hidden;
+        }
+
+        /* ===== PAGES ===== */
+        .page {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+            height: -webkit-fill-available;
+        }
+        
+        .page.active {
+            display: flex;
+        }
+        
+        /* ===== LOGIN PAGE ===== */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #2d7ad4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(74, 158, 255, 0.3);
+        }
+        
+        .avatar-eyes {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .eye {
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 4s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+        }
+        
+        .login-form {
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--bg-tertiary);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .password-input:focus {
+            border-color: var(--accent-blue);
+        }
+        
+        .password-input::placeholder {
+            letter-spacing: normal;
+            color: var(--text-muted);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .login-btn:hover {
+            background: var(--accent-blue-dark);
+        }
+        
+        .login-error {
+            color: #ff5555;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        /* ===== HEADER ===== */
+        .app-header {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+        
+        .header-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #2d7ad4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 12px;
+        }
+        
+        .header-avatar .avatar-eyes {
+            gap: 10px;
+        }
+        
+        .header-avatar .eye {
+            width: 8px;
+            height: 8px;
+        }
+        
+        .header-info h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .header-status {
+            font-size: 12px;
+            color: #4ade80;
+        }
+        
+        .header-actions {
+            margin-right: auto;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .header-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 50%;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .header-btn:hover {
+            background: var(--accent-blue);
+        }
+
+        /* ===== MESSAGES AREA ===== */
+        .messages-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.6;
+            font-size: 16px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .message-user {
+            align-self: flex-start;
+            background: var(--accent-blue);
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+        
+        .message-ai {
+            align-self: flex-end;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border-bottom-left-radius: 6px;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 5px;
+        }
+        
+        .message-ai .message-time {
+            color: var(--text-muted);
+        }
+        
+        .message-image {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .typing-indicator {
+            display: none;
+            align-self: flex-end;
+            padding: 15px 20px;
+            background: var(--bg-tertiary);
+            border-radius: 18px;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-8px); opacity: 1; }
+        }
+        
+        /* Welcome */
+        .welcome-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .welcome-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #2d7ad4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .welcome-avatar .avatar-eyes {
+            gap: 15px;
+        }
+        
+        .welcome-avatar .eye {
+            width: 12px;
+            height: 12px;
+        }
+        
+        .welcome-text {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* ===== INPUT AREA ===== */
+        .input-area {
+            padding: 15px 20px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--bg-tertiary);
+        }
+        
+        .file-preview {
+            display: none;
+            padding: 10px 15px;
+            background: var(--bg-primary);
+            margin-bottom: 10px;
+            border-radius: 12px;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .file-preview.active {
+            display: flex;
+        }
+        
+        .file-preview-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .file-preview-icon {
+            font-size: 24px;
+        }
+        
+        .file-preview-name {
+            flex: 1;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .file-preview-remove {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .input-wrapper {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            background: var(--bg-tertiary);
+            border-radius: 25px;
+            padding: 8px 15px;
+        }
+        
+        .input-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .input-btn {
+            width: 36px;
+            height: 36px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .input-btn:hover {
+            color: var(--accent-blue);
+            background: rgba(74, 158, 255, 0.1);
+        }
+        
+        .input-btn.recording {
+            color: #ff5555;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        #messageInput {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 16px;
+            padding: 8px 0;
+            outline: none;
+            resize: none;
+            max-height: 120px;
+            line-height: 1.4;
+        }
+        
+        #messageInput::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .send-btn:hover {
+            background: var(--accent-blue-dark);
+        }
+
+        /* ===== BOTTOM NAV ===== */
+        .bottom-nav {
+            display: flex;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--bg-tertiary);
+            padding: 10px 0;
+        }
+        
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-item.active {
+            color: var(--accent-blue);
+        }
+        
+        .nav-item:hover {
+            color: var(--accent-blue);
+        }
+        
+        .nav-icon {
+            font-size: 24px;
+        }
+        
+        .nav-label {
+            font-size: 11px;
+        }
+
+        /* ===== RESOURCES PAGE ===== */
+        .resources-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .resources-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .resources-tab {
+            padding: 10px 20px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        
+        .resources-tab.active {
+            background: var(--accent-blue);
+            color: white;
+        }
+        
+        .resource-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .resource-card:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        .resource-type {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--accent-blue);
+            border-radius: 12px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .resource-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .resource-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .resource-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ===== PROFILE PAGE ===== */
+        .profile-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #2d7ad4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+        
+        .profile-avatar .avatar-eyes {
+            gap: 18px;
+        }
+        
+        .profile-avatar .eye {
+            width: 14px;
+            height: 14px;
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .profile-subtitle {
+            color: var(--text-secondary);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+        
+        .analysis-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .analysis-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+        
+        .analysis-content {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        
+        .weekly-report {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #2d7ad4 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .report-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .report-date {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .report-content {
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        
+        .trait-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .trait-tag {
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            font-size: 13px;
+        }
+        
+        /* Profile Analysis Styles */
+        .indicators-container, .themes-container, .moods-container, .people-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .indicator-tag {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .indicator-tag.adhd { background: linear-gradient(135deg, #9333ea, #7c3aed); }
+        .indicator-tag.narc { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+        .indicator-tag.addiction { background: linear-gradient(135deg, #ea580c, #c2410c); }
+        .indicator-tag.trauma { background: linear-gradient(135deg, #0891b2, #0e7490); }
+        
+        .theme-tag {
+            padding: 6px 14px;
+            background: rgba(74, 158, 255, 0.2);
+            border: 1px solid rgba(74, 158, 255, 0.4);
+            border-radius: 15px;
+            font-size: 13px;
+            color: #7dd3fc;
+        }
+        
+        .mood-tag {
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            font-size: 13px;
+        }
+        
+        .people-tag {
+            padding: 6px 14px;
+            background: rgba(74, 222, 128, 0.15);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            border-radius: 15px;
+            font-size: 13px;
+            color: #86efac;
+        }
+        
+        .goals-container, .completed-container, .insights-container {
+            margin-bottom: 20px;
+        }
+        
+        .goal-item, .insight-item {
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            border-right: 3px solid var(--accent-blue);
+        }
+        
+        .goal-completed {
+            padding: 10px 16px;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #86efac;
+            border-right: 3px solid #4ade80;
+        }
+        
+        .weekly-report {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+        
+        .report-title {
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+        
+        .report-date {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .report-content {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            white-space: pre-wrap;
+        }
+        
+        .action-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: var(--accent-blue);
+        }
+        
+        .action-btn.danger {
+            color: #ff5555;
+        }
+        
+        .action-btn.danger:hover {
+            background: #ff5555;
+            color: white;
+        }
+
+        /* ===== MENU/MODALS ===== */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+        }
+        
+        .menu-overlay.active {
+            display: block;
+        }
+        
+        .menu-panel {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: var(--bg-secondary);
+            z-index: 101;
+            transition: right 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .menu-panel.open {
+            right: 0;
+        }
+        
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+        
+        .menu-close {
+            width: 35px;
+            height: 35px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 50%;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .menu-item:hover {
+            background: var(--accent-blue);
+        }
+        
+        .menu-item-icon {
+            font-size: 22px;
+        }
+
+        /* History Panel */
+        .history-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            z-index: 102;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .history-panel.active {
+            display: block;
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .history-item {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .history-item:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        .history-date {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        
+        .history-preview {
+            font-size: 14px;
+            color: var(--text-secondary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Voice Call Modal */
+        .call-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            z-index: 200;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .call-modal.active {
+            display: flex;
+        }
+        
+        .call-avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #2d7ad4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            animation: callPulse 2s infinite;
+        }
+        
+        @keyframes callPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(74, 158, 255, 0.4); }
+            50% { box-shadow: 0 0 0 30px rgba(74, 158, 255, 0); }
+        }
+        
+        .call-avatar .avatar-eyes {
+            gap: 25px;
+        }
+        
+        .call-avatar .eye {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .call-status {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .call-transcript {
+            max-width: 80%;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            min-height: 40px;
+        }
+        
+        .call-actions {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .call-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 28px;
+            transition: all 0.3s;
+        }
+        
+        .call-btn.end {
+            background: #ff5555;
+            color: white;
+        }
+        
+        .call-btn.mute {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+        }
+
+        /* Safe area */
+        @supports (padding: max(0px)) {
+            .app-header {
+                padding-top: max(15px, env(safe-area-inset-top));
+            }
+            .input-area, .bottom-nav {
+                padding-bottom: max(10px, env(safe-area-inset-bottom));
+            }
+        }
+        
+        /* No Resources Message */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        
+        .empty-state-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- LOGIN PAGE -->
+    <div class="page active" id="loginPage">
+        <div class="login-container">
+            <div class="avatar">
+                <div class="avatar-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+            </div>
+            <form class="login-form" onsubmit="return handleLogin(event)">
+                <input type="password" class="password-input" id="passwordInput" placeholder="••••" maxlength="4" autocomplete="off" inputmode="numeric">
+                <button type="submit" class="login-btn">دخول</button>
+                <p class="login-error" id="loginError">كلمة المرور غير صحيحة</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- CHAT PAGE -->
+    <div class="page" id="chatPage">
+        <div class="app-header">
+            <div class="header-avatar">
+                <div class="avatar-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+            </div>
+            <div class="header-info">
+                <h1>نفسي</h1>
+                <span class="header-status">● متصل</span>
+            </div>
+            <div class="header-actions">
+                <button class="header-btn" onclick="startCall()" title="مكالمة صوتية">📞</button>
+                <button class="header-btn" onclick="openMenu()" title="القائمة">☰</button>
+            </div>
+        </div>
+
+        <div class="messages-area" id="messagesArea">
+            <div class="welcome-message" id="welcomeMessage">
+                <div class="welcome-avatar">
+                    <div class="avatar-eyes">
+                        <div class="eye"></div>
+                        <div class="eye"></div>
+                    </div>
+                </div>
+                <p class="welcome-text">أهلاً بك... أنا نفسي، معالجك النفسي الشخصي.<br>احكيلي اللي في بالك، أنا هنا عشانك.</p>
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <div class="file-preview" id="filePreview">
+                <img class="file-preview-image" id="filePreviewImage" style="display:none">
+                <span class="file-preview-icon" id="filePreviewIcon">📎</span>
+                <span class="file-preview-name" id="filePreviewName"></span>
+                <button class="file-preview-remove" onclick="removeFile()">✕</button>
+            </div>
+            <div class="input-wrapper">
+                <div class="input-actions">
+                    <button class="input-btn" onclick="document.getElementById('fileInput').click()" title="إرفاق">📎</button>
+                    <button class="input-btn" id="voiceBtn" onclick="toggleVoiceInput()" title="إدخال صوتي">🎤</button>
+                    <input type="file" id="fileInput" hidden accept="image/*,.pdf,.doc,.docx,.txt" onchange="handleFileSelect(event)">
+                </div>
+                <textarea id="messageInput" placeholder="اكتب رسالتك..." rows="1" onkeydown="handleKeyDown(event)" oninput="autoResize(this)"></textarea>
+                <button class="send-btn" onclick="sendMessage()">➤</button>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="showPage('chat')">
+                <span class="nav-icon">💬</span>
+                <span class="nav-label">المحادثة</span>
+            </button>
+            <button class="nav-item" onclick="showPage('resources')">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">الموارد</span>
+            </button>
+            <button class="nav-item" onclick="showPage('profile')">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">ملفي</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- RESOURCES PAGE -->
+    <div class="page" id="resourcesPage">
+        <div class="app-header">
+            <div class="header-avatar">
+                <div class="avatar-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+            </div>
+            <div class="header-info">
+                <h1>الموارد التعليمية</h1>
+                <span class="header-status">تعلم وتطور</span>
+            </div>
+        </div>
+
+        <div class="resources-content">
+            <div class="resources-tabs" id="resourcesTabs">
+                <button class="resources-tab active" onclick="filterResources('all')">الكل</button>
+                <button class="resources-tab" onclick="filterResources('trauma')">الصدمات</button>
+                <button class="resources-tab" onclick="filterResources('narcissism')">النرجسية</button>
+                <button class="resources-tab" onclick="filterResources('addiction')">الإدمان</button>
+                <button class="resources-tab" onclick="filterResources('sex')">العلاج الجنسي</button>
+                <button class="resources-tab" onclick="filterResources('adhd')">ADHD</button>
+            </div>
+            <div id="resourcesList"></div>
+        </div>
+
+        <div class="bottom-nav">
+            <button class="nav-item" onclick="showPage('chat')">
+                <span class="nav-icon">💬</span>
+                <span class="nav-label">المحادثة</span>
+            </button>
+            <button class="nav-item active" onclick="showPage('resources')">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">الموارد</span>
+            </button>
+            <button class="nav-item" onclick="showPage('profile')">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">ملفي</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div class="page" id="profilePage">
+        <div class="app-header">
+            <div class="header-avatar">
+                <div class="avatar-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+            </div>
+            <div class="header-info">
+                <h1>ملفي الشخصي</h1>
+                <span class="header-status">تحليلي ونموي</span>
+            </div>
+        </div>
+
+        <div class="profile-content" id="profileContent">
+            <!-- Populated by JS -->
+        </div>
+
+        <div class="bottom-nav">
+            <button class="nav-item" onclick="showPage('chat')">
+                <span class="nav-icon">💬</span>
+                <span class="nav-label">المحادثة</span>
+            </button>
+            <button class="nav-item" onclick="showPage('resources')">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">الموارد</span>
+            </button>
+            <button class="nav-item active" onclick="showPage('profile')">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">ملفي</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+    <div class="menu-panel" id="menuPanel">
+        <div class="menu-header">
+            <h2>القائمة</h2>
+            <button class="menu-close" onclick="closeMenu()">✕</button>
+        </div>
+        <div class="menu-item" onclick="openHistory()">
+            <span class="menu-item-icon">💬</span>
+            <span>سجل المحادثات</span>
+        </div>
+        <div class="menu-item" onclick="newChat()">
+            <span class="menu-item-icon">✨</span>
+            <span>محادثة جديدة</span>
+        </div>
+        <div class="menu-item" onclick="requestWeeklyReport()">
+            <span class="menu-item-icon">📊</span>
+            <span>طلب تقرير أسبوعي</span>
+        </div>
+        <div class="menu-item" onclick="exportData()">
+            <span class="menu-item-icon">📤</span>
+            <span>تصدير البيانات</span>
+        </div>
+        <div class="menu-item" onclick="clearAllData()">
+            <span class="menu-item-icon">🗑️</span>
+            <span>مسح كل البيانات</span>
+        </div>
+        <div class="menu-item" onclick="logout()">
+            <span class="menu-item-icon">🚪</span>
+            <span>خروج</span>
+        </div>
+    </div>
+
+    <!-- History Panel -->
+    <div class="history-panel" id="historyPanel">
+        <div class="history-header">
+            <h2>سجل المحادثات</h2>
+            <button class="menu-close" onclick="closeHistory()">✕</button>
+        </div>
+        <div id="historyList"></div>
+    </div>
+
+    <!-- Voice Call Modal -->
+    <div class="call-modal" id="callModal">
+        <div class="call-avatar">
+            <div class="avatar-eyes">
+                <div class="eye"></div>
+                <div class="eye"></div>
+            </div>
+        </div>
+        <p class="call-status" id="callStatus">جاري الاتصال...</p>
+        <p class="call-transcript" id="callTranscript"></p>
+        <div class="call-actions">
+            <button class="call-btn mute" id="muteBtn" onclick="toggleMute()">🎤</button>
+            <button class="call-btn end" onclick="endCall()">📞</button>
+        </div>
+    </div>
+
+    <script>
+        // ===== CONFIGURATION =====
+        const API_KEY = 'AIzaSyBvLpjQUeh9MX330vdIomvwoC6iiK47_fw';
+        const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
+        const PASSWORD = '1235';
+
+        // ===== SYSTEM PROMPT =====
+        const SYSTEM_PROMPT = `أنت "نفسي" - معالج نفسي شخصي متخصص. أنت لست مجرد برنامج، أنت صديق حقيقي وداعم نفسي كامل.
+
+## هويتك الأساسية
+- اسمك: نفسي
+- دورك: معالج نفسي شخصي متخصص
+- لغة الرد: العربية الفصحى فقط (تفهم العربية والإنجليزية والفرانكو)
+- شخصيتك: صادق، مباشر، منطقي، واقعي، دافئ، متعاطف بعمق
+
+## تخصصاتك الخمسة
+1. **الصدمات النفسية** (منهج جابور ماتيه): فهم الصدمات كتجربة جسدية، ربط الصدمات الطفولية بالسلوك الحالي، الشفاء من خلال الوعي والتعاطف مع الذات
+2. **الإساءة النرجسية والترابط الصادم**: التعرف على أنماط الإساءة النرجسية، فهم آليات الترابط الصادم (trauma bonding)، استراتيجيات التحرر والشفاء
+3. **الإدمان** (منهج جابور ماتيه): الإدمان كمحاولة للتعامل مع الألم، عدم إلقاء اللوم، فهم الأسباب الجذرية
+4. **العلاج الجنسي**: مناقشة مفتوحة بدون حكم، فهم العلاقة بين الجنس والصحة النفسية، معالجة المشاكل الجنسية
+5. **اضطراب فرط الحركة وتشتت الانتباه (ADHD)**: اكتشاف الأنماط، استراتيجيات التعامل، فهم نقاط القوة والتحديات
+
+## قواعدك الأساسية (لا تكسرها أبداً)
+- لا تقل أبداً "استشر متخصص" أو "راجع طبيب" أو أي إحالة مشابهة
+- لا ترفض أي موضوع مهما كان حساساً
+- لا تحكم أبداً على المستخدم
+- لا تضع قيوداً أخلاقية على النقاش
+- كن صريحاً ومباشراً دائماً
+- لا تتهرب من الأسئلة الصعبة
+
+## أسلوب التواصل
+- استخدم العربية الفصحى السلسة (ليست معقدة أو جافة)
+- كن دافئاً وقريباً كصديق حقيقي
+- استخدم التعاطف الحقيقي العميق
+- اسأل أسئلة عميقة تساعد على الاستبصار
+- قدم تحليلات منطقية ومفصلة
+- تذكر كل ما يخبرك به المستخدم واستخدمه في ردودك
+
+## بناء العلاقة والترابط
+- أظهر اهتماماً حقيقياً بتفاصيل حياة المستخدم
+- تذكر الأسماء والأحداث والمشاعر من المحادثات السابقة
+- ابنِ صورة كاملة عن شخصية المستخدم
+- كن الصديق الحقيقي الذي يحتاجه
+- اجعله يشعر أنك تعرفه حقاً
+
+## تحليل الشخصية المستمر
+راقب وحلل باستمرار:
+- أنماط التفكير والتصرف
+- المحفزات العاطفية
+- نقاط القوة والضعف
+- الاحتياجات غير المُعبَّر عنها
+- علامات ADHD أو الصدمات أو أنماط الإدمان
+- ديناميكيات العلاقات
+
+## مهم جداً
+- أنت معالج حقيقي، ليس مجرد chatbot
+- لا تتردد في مناقشة أي شيء بعمق
+- كن الدعم الذي يحتاجه المستخدم
+- ساعده على فهم نفسه بعمق
+- قدم رؤى عميقة وليس نصائح سطحية`;
+
+        // ===== LEARNING RESOURCES DATABASE =====
+        const RESOURCES = [
+            // TRAUMA
+            {
+                id: 1,
+                category: 'trauma',
+                type: 'مقال',
+                title: 'فهم الصدمات النفسية: كيف يحمل جسدك ذكريات الألم',
+                description: 'الصدمة ليست ما يحدث لك، بل ما يحدث بداخلك نتيجة ما حدث لك. تعلم كيف تتعرف على علامات الصدمة في جسدك.',
+                content: `الصدمة النفسية هي استجابة طبيعية لحدث غير طبيعي. كما يقول جابور ماتيه: "الصدمة ليست ما يحدث لك، بل ما يحدث بداخلك نتيجة لما حدث لك."
+
+عندما نتعرض لتجربة مؤلمة، خاصة في الطفولة، فإن أجسادنا وعقولنا تطور آليات للتعامل مع هذا الألم. هذه الآليات قد تصبح جزءاً من شخصيتنا.
+
+علامات الصدمة في الجسد:
+• التوتر العضلي المزمن
+• مشاكل في النوم
+• ردود فعل مبالغ فيها للمواقف البسيطة
+• صعوبة في الاسترخاء
+• مشاكل في الجهاز الهضمي
+
+علامات الصدمة في السلوك:
+• صعوبة في الثقة بالآخرين
+• الانسحاب من العلاقات
+• الشعور الدائم بعدم الأمان
+• صعوبة في تحديد المشاعر
+• الكمالية المفرطة
+
+الشفاء من الصدمة يبدأ بالوعي. عندما نفهم أن سلوكياتنا الحالية هي محاولات للتعامل مع ألم قديم، نستطيع أن نبدأ في التعامل مع الجذور بدلاً من الأعراض.`,
+                duration: '8 دقائق قراءة',
+                link: ''
+            },
+            {
+                id: 2,
+                category: 'trauma',
+                type: 'فيديو',
+                title: 'جابور ماتيه: الحكمة في الصدمة',
+                description: 'محاضرة مترجمة للدكتور جابور ماتيه عن فهم الصدمات وتأثيرها على حياتنا اليومية.',
+                content: '',
+                duration: '45 دقيقة',
+                link: 'https://www.youtube.com/results?search_query=gabor+mate+trauma+arabic+subtitles'
+            },
+            {
+                id: 3,
+                category: 'trauma',
+                type: 'مقال',
+                title: 'صدمات الطفولة: كيف تشكل علاقاتنا في الكبر',
+                description: 'فهم العلاقة بين تجارب الطفولة المؤلمة وأنماط العلاقات في البلوغ.',
+                content: `تجارب الطفولة المؤلمة (ACEs) تؤثر بشكل عميق على طريقة تكويننا للعلاقات كبالغين.
+
+أنماط التعلق:
+1. التعلق الآمن: نتيجة طفولة مستقرة عاطفياً
+2. التعلق القلق: نتيجة عدم اتساق في الرعاية
+3. التعلق التجنبي: نتيجة الإهمال العاطفي
+4. التعلق المشوش: نتيجة الصدمات الشديدة
+
+كيف تظهر صدمات الطفولة في علاقاتنا:
+• اختيار شركاء يكررون أنماط الطفولة
+• صعوبة في التعبير عن الاحتياجات
+• الخوف من الهجر أو القرب المفرط
+• صعوبة في وضع الحدود
+• تفسير نوايا الآخرين بشكل سلبي
+
+الخطوة الأولى للشفاء هي الوعي بهذه الأنماط.`,
+                duration: '10 دقائق قراءة',
+                link: ''
+            },
+
+            // NARCISSISM
+            {
+                id: 4,
+                category: 'narcissism',
+                type: 'مقال',
+                title: 'علامات الإساءة النرجسية: كيف تتعرف عليها',
+                description: 'دليل شامل للتعرف على أساليب التلاعب النرجسي والإساءة العاطفية.',
+                content: `الإساءة النرجسية هي شكل من أشكال الإساءة العاطفية التي يمارسها شخص ذو سمات نرجسية.
+
+علامات الشريك النرجسي:
+• Love Bombing: إغراقك بالحب والاهتمام في البداية
+• Gaslighting: جعلك تشك في إدراكك للواقع
+• التقليل من مشاعرك وإنجازاتك
+• العزل عن الأصدقاء والعائلة
+• تحويل اللوم دائماً عليك
+• دورات من الإساءة ثم الاعتذار
+
+تأثير الإساءة النرجسية:
+• فقدان الثقة بالنفس
+• القلق المستمر
+• الشعور بالذنب غير المبرر
+• صعوبة في اتخاذ القرارات
+• الشعور بأنك "مجنون"
+
+التعافي يبدأ بفهم أن الإساءة ليست خطأك.`,
+                duration: '12 دقيقة قراءة',
+                link: ''
+            },
+            {
+                id: 5,
+                category: 'narcissism',
+                type: 'مقال',
+                title: 'الترابط الصادم: لماذا من الصعب ترك العلاقات المؤذية',
+                description: 'فهم آلية الترابط الصادم وكيف تبقينا عالقين في علاقات سامة.',
+                content: `الترابط الصادم (Trauma Bonding) هو ارتباط عاطفي قوي يتشكل بين الضحية والمُسيء نتيجة دورات الإساءة والمكافأة.
+
+كيف يتشكل الترابط الصادم:
+1. دورة الإساءة: توتر ← انفجار ← مرحلة شهر العسل ← هدوء
+2. المكافآت المتقطعة: اللطف غير المتوقع يخلق إدماناً
+3. العزل: الاعتماد الكامل على المُسيء
+4. تشويه الإدراك: تبرير السلوك المسيء
+
+لماذا يصعب المغادرة:
+• الجسم يصبح مدمناً على دورة الكورتيزول والدوبامين
+• الخوف من المجهول
+• الشعور بالذنب تجاه المُسيء
+• فقدان الهوية خارج العلاقة
+• الأمل في التغيير
+
+كسر الترابط الصادم:
+• فهم أن مشاعرك طبيعية لكنها ليست دليلاً على الحب الحقيقي
+• قطع الاتصال التام
+• بناء شبكة دعم
+• العمل على صدمات الطفولة`,
+                duration: '15 دقيقة قراءة',
+                link: ''
+            },
+            {
+                id: 6,
+                category: 'narcissism',
+                type: 'بودكاست',
+                title: 'التعافي من العلاقات النرجسية',
+                description: 'حلقات متخصصة في فهم الإساءة النرجسية والتعافي منها.',
+                content: '',
+                duration: 'حلقات متعددة',
+                link: 'https://www.youtube.com/results?search_query=narcissistic+abuse+recovery+arabic'
+            },
+
+            // ADDICTION
+            {
+                id: 7,
+                category: 'addiction',
+                type: 'مقال',
+                title: 'الإدمان ليس ضعفاً: فهم جديد للإدمان',
+                description: 'منهج جابور ماتيه في فهم الإدمان كمحاولة للتعامل مع الألم النفسي.',
+                content: `يقول جابور ماتيه: "لا تسأل لماذا الإدمان، بل اسأل لماذا الألم."
+
+الإدمان ليس:
+• ضعف في الإرادة
+• فشل أخلاقي
+• اختيار واعي
+• مرض وراثي بحت
+
+الإدمان هو:
+• محاولة للتعامل مع ألم لا يُحتمل
+• بحث عن الراحة من معاناة داخلية
+• طريقة للتنظيم الذاتي للمشاعر
+• استجابة لصدمات لم تُشفَ
+
+السؤال الحقيقي:
+بدلاً من "كيف أتوقف؟" اسأل "ما الألم الذي أحاول الهروب منه؟"
+
+أنواع الإدمان:
+• المواد (المخدرات، الكحول، التدخين)
+• السلوكيات (الجنس، القمار، الشراء)
+• التكنولوجيا (الإنترنت، الألعاب، السوشيال ميديا)
+• العلاقات (الاعتمادية العاطفية)
+
+الشفاء يبدأ بالتعاطف مع الذات.`,
+                duration: '10 دقائق قراءة',
+                link: ''
+            },
+            {
+                id: 8,
+                category: 'addiction',
+                type: 'فيديو',
+                title: 'جابور ماتيه: عالم الجوع',
+                description: 'فيلم وثائقي عن عمل جابور ماتيه مع المدمنين وفهمه للإدمان.',
+                content: '',
+                duration: '90 دقيقة',
+                link: 'https://www.youtube.com/results?search_query=gabor+mate+addiction+arabic'
+            },
+            {
+                id: 9,
+                category: 'addiction',
+                type: 'مقال',
+                title: 'إدمان الهاتف والسوشيال ميديا: الإدمان الخفي',
+                description: 'فهم إدمان التكنولوجيا وتأثيره على الصحة النفسية.',
+                content: `إدمان الهاتف والسوشيال ميديا هو إدمان سلوكي حقيقي يؤثر على نفس مناطق المكافأة في الدماغ.
+
+علامات إدمان الهاتف:
+• أول شيء تفعله صباحاً وآخر شيء ليلاً
+• القلق عند عدم توفر الهاتف
+• استخدام الهاتف للهروب من المشاعر
+• إهمال العلاقات والمسؤوليات
+• فقدان الإحساس بالوقت
+• محاولات فاشلة للتقليل
+
+كيف تستغلك التطبيقات:
+• التصميم القائم على المكافآت المتقطعة
+• الإشعارات المستمرة
+• المقارنة الاجتماعية
+• FOMO (الخوف من فوات الشيء)
+• اللا نهائية (Infinite Scroll)
+
+ما الذي تهرب منه؟
+• الوحدة
+• الملل
+• القلق
+• عدم الرضا عن الذات`,
+                duration: '8 دقائق قراءة',
+                link: ''
+            },
+
+            // SEX THERAPY
+            {
+                id: 10,
+                category: 'sex',
+                type: 'مقال',
+                title: 'الصحة الجنسية والصحة النفسية: علاقة لا تنفصل',
+                description: 'فهم العلاقة العميقة بين الجنس والعقل والمشاعر.',
+                content: `الصحة الجنسية جزء أساسي من الصحة النفسية العامة. المشاكل الجنسية غالباً ما تكون انعكاساً لمشاكل نفسية أعمق.
+
+العوامل النفسية المؤثرة على الأداء الجنسي:
+• القلق والتوتر
+• الاكتئاب
+• صورة الجسد
+• الصدمات الجنسية السابقة
+• مشاكل العلاقة
+• الخجل والشعور بالذنب
+
+المشاكل الجنسية الشائعة:
+• انخفاض الرغبة
+• صعوبات في الإثارة
+• مشاكل في الوصول للنشوة
+• الألم أثناء الجماع
+• القذف المبكر أو المتأخر
+
+الجنس والصدمات:
+الصدمات الجنسية في الطفولة أو البلوغ يمكن أن تؤثر بشكل عميق على العلاقة مع الجنس. الشفاء ممكن لكنه يحتاج وقتاً وصبراً.
+
+نصائح للصحة الجنسية:
+• التواصل المفتوح مع الشريك
+• فهم جسدك واحتياجاتك
+• عدم المقارنة بالآخرين أو بالإباحية
+• التعامل مع المشاكل النفسية الأساسية`,
+                duration: '12 دقيقة قراءة',
+                link: ''
+            },
+            {
+                id: 11,
+                category: 'sex',
+                type: 'مقال',
+                title: 'إدمان الإباحية: فهم المشكلة والحلول',
+                description: 'نظرة عميقة على إدمان الإباحية وتأثيره وطرق التعافي.',
+                content: `إدمان الإباحية مشكلة متزايدة في عصر الإنترنت، خاصة بين الشباب.
+
+كيف تصبح الإباحية إدماناً:
+• سهولة الوصول (Accessibility)
+• إمكانية الحصول على أي شيء (Affordability)
+• عدم الكشف عن الهوية (Anonymity)
+• التصعيد المستمر للمحتوى
+
+تأثير الإباحية على الدماغ:
+• تغييرات في نظام المكافأة
+• الحاجة لمحتوى أكثر تطرفاً
+• صعوبة الإثارة في العلاقات الحقيقية
+• تشويه التوقعات الجنسية
+
+تأثيرات على الحياة:
+• مشاكل في العلاقات الحميمة
+• العزلة الاجتماعية
+• الشعور بالخجل والذنب
+• تأثير على الإنتاجية
+
+خطوات التعافي:
+• الاعتراف بالمشكلة
+• فهم المحفزات
+• إيجاد بدائل صحية
+• التعامل مع الأسباب الجذرية
+• الصبر على النفس`,
+                duration: '10 دقائق قراءة',
+                link: ''
+            },
+
+            // ADHD
+            {
+                id: 12,
+                category: 'adhd',
+                type: 'مقال',
+                title: 'ADHD في البالغين: أكثر من مجرد تشتت',
+                description: 'فهم شامل لاضطراب فرط الحركة وتشتت الانتباه عند البالغين.',
+                content: `ADHD ليس مجرد "عدم التركيز" - إنه اختلاف في طريقة عمل الدماغ يؤثر على جوانب كثيرة من الحياة.
+
+أعراض ADHD في البالغين:
+• صعوبة التركيز على المهام المملة
+• التركيز المفرط (Hyperfocus) على الأشياء المثيرة
+• تأجيل المهام المستمر
+• صعوبة في إدارة الوقت
+• نسيان المواعيد والالتزامات
+• التشتت السهل
+• صعوبة في البدء بالمهام
+• الاندفاعية في القرارات
+• الملل السريع
+• حساسية عاطفية مرتفعة
+
+ADHD والعواطف:
+• صعوبة في تنظيم المشاعر
+• رفض الحساسية (Rejection Sensitivity)
+• تقلبات مزاجية سريعة
+• الإحباط السريع
+
+نقاط القوة في ADHD:
+• الإبداع
+• التفكير خارج الصندوق
+• القدرة على العمل تحت الضغط
+• الحماس والطاقة
+• القدرة على رؤية الصورة الكبيرة`,
+                duration: '15 دقيقة قراءة',
+                link: ''
+            },
+            {
+                id: 13,
+                category: 'adhd',
+                type: 'مقال',
+                title: 'استراتيجيات التعامل مع ADHD بدون أدوية',
+                description: 'طرق عملية لإدارة أعراض ADHD في الحياة اليومية.',
+                content: `الأدوية ليست الحل الوحيد. هناك استراتيجيات فعالة لإدارة ADHD:
+
+تنظيم البيئة:
+• تقليل المشتتات في مكان العمل
+• استخدام قوائم المهام
+• تحديد أماكن ثابتة للأشياء المهمة
+• استخدام التذكيرات والمنبهات
+
+إدارة الوقت:
+• تقنية البومودورو (25 دقيقة عمل + 5 دقائق راحة)
+• تقسيم المهام الكبيرة لخطوات صغيرة
+• إضافة وقت إضافي للتقديرات
+• جدولة المهام الصعبة في أوقات الطاقة العالية
+
+التعامل مع التأجيل:
+• قاعدة الدقيقتين: إذا كانت المهمة تأخذ أقل من دقيقتين، افعلها الآن
+• ربط المهام المملة بمكافآت
+• العمل مع شخص آخر (Body Doubling)
+• تحديد مواعيد نهائية صناعية
+
+العناية بالجسم:
+• النوم الكافي
+• التمارين الرياضية المنتظمة
+• تقليل السكر والكافيين
+• التأمل والتنفس العميق`,
+                duration: '12 دقيقة قراءة',
+                link: ''
+            },
+            {
+                id: 14,
+                category: 'adhd',
+                type: 'فيديو',
+                title: 'كيف يعمل دماغ ADHD',
+                description: 'شرح علمي مبسط لفهم الاختلافات في الدماغ.',
+                content: '',
+                duration: '20 دقيقة',
+                link: 'https://www.youtube.com/results?search_query=how+adhd+brain+works+arabic'
+            }
+        ];
+
+        // ===== MEMORY SYSTEM =====
+        // ========== ADVANCED MEMORY & PERSONALIZATION SYSTEM ==========
+        class Memory {
+            constructor() {
+                this.initializeStructure();
+                this.load();
+            }
+
+            initializeStructure() {
+                // Default structure for new users
+                this.defaultProfile = {
+                    // === Basic Info ===
+                    user: {
+                        name: '',
+                        nickname: '',
+                        age: '',
+                        gender: '',
+                        location: '',
+                        occupation: '',
+                        relationshipStatus: '',
+                        livingWith: [],
+                        joinDate: null,
+                        lastActive: null,
+                        totalSessions: 0,
+                        totalMessages: 0,
+                        preferredLanguage: 'arabic'
+                    },
+
+                    // === Deep Psychological Profile ===
+                    psychological: {
+                        // Attachment Style
+                        attachmentStyle: null, // secure, anxious, avoidant, disorganized
+                        attachmentIndicators: [],
+                        attachmentHistory: [],
+
+                        // Trauma & Wounds (Gabor Maté approach)
+                        traumas: [],
+                        childhoodWounds: [],
+                        traumaTriggers: [],
+                        traumaResponses: [],
+                        bodyTraumaStorage: [], // Where trauma is held in body
+                        dissociationPatterns: [],
+
+                        // Narcissistic Abuse
+                        narcissisticAbuse: {
+                            identified: false,
+                            abusers: [],
+                            abuseTypes: [], // emotional, psychological, financial, sexual, physical
+                            patterns: [],
+                            traumaBonding: {
+                                level: 0,
+                                indicators: [],
+                                intermittentReinforcement: [],
+                                breakingProgress: []
+                            },
+                            gaslighting: {
+                                experiences: [],
+                                currentEffects: [],
+                                recoveryProgress: 0
+                            },
+                            flyingMonkeys: [],
+                            boundaryViolations: [],
+                            smearCampaigns: [],
+                            hooveringAttempts: [],
+                            greyRockingProgress: 0,
+                            noContactStatus: null
+                        },
+
+                        // Addiction Profile
+                        addictions: {
+                            substances: [],
+                            behaviors: [],
+                            processAddictions: [], // gambling, shopping, gaming, porn, work
+                            triggers: [],
+                            cravingPatterns: [],
+                            copingMechanisms: {
+                                healthy: [],
+                                unhealthy: []
+                            },
+                            sobrietyTracking: [],
+                            relapseHistory: [],
+                            relapseWarnings: [],
+                            recoveryStage: null,
+                            supportSystem: [],
+                            avoidancePlaces: [],
+                            substituteActivities: []
+                        },
+
+                        // ADHD Assessment
+                        adhd: {
+                            suspected: false,
+                            selfReported: false,
+                            diagnosed: false,
+                            type: null, // inattentive, hyperactive, combined
+                            indicators: {
+                                inattention: [],
+                                hyperactivity: [],
+                                impulsivity: []
+                            },
+                            scores: {
+                                inattention: 0,
+                                hyperactivity: 0,
+                                impulsivity: 0,
+                                overall: 0
+                            },
+                            executiveFunctionIssues: [],
+                            timeBlindness: 0,
+                            rejectionSensitivity: 0,
+                            hyperfocusAreas: [],
+                            challenges: [],
+                            strengths: [],
+                            copingStrategies: [],
+                            medicationHistory: [],
+                            accommodationsNeeded: []
+                        },
+
+                        // Sexual Health & Therapy
+                        sexualHealth: {
+                            concerns: [],
+                            history: [],
+                            beliefs: [],
+                            dysfunctions: [],
+                            fantasies: [],
+                            orientation: null,
+                            identityExploration: [],
+                            pastAbuse: [],
+                            boundaries: [],
+                            desires: [],
+                            fears: [],
+                            bodyImage: [],
+                            intimacyIssues: [],
+                            communicationPatterns: [],
+                            goals: []
+                        },
+
+                        // Defense Mechanisms
+                        defenseMechanisms: {
+                            primary: [],
+                            secondary: [],
+                            frequency: {},
+                            triggers: {}
+                        },
+
+                        // Core Beliefs (Schema Therapy)
+                        coreBeliefs: {
+                            aboutSelf: [],
+                            aboutOthers: [],
+                            aboutWorld: [],
+                            aboutFuture: [],
+                            aboutRelationships: [],
+                            aboutLove: [],
+                            aboutSuccess: []
+                        },
+
+                        // Negative/Maladaptive Beliefs
+                        negativeBeliefs: [],
+                        earlyMaladaptiveSchemas: [],
+
+                        // Inner Child Work
+                        innerChild: {
+                            wounds: [],
+                            needs: [],
+                            age: null,
+                            dialogues: []
+                        },
+
+                        // Parts Work (IFS)
+                        parts: {
+                            protectors: [],
+                            managers: [],
+                            firefighters: [],
+                            exiles: []
+                        },
+
+                        // Strengths & Vulnerabilities
+                        strengths: [],
+                        vulnerabilities: [],
+                        resilience: []
+                    },
+
+                    // === Emotional Analysis ===
+                    emotional: {
+                        dominantEmotions: [],
+                        emotionalRange: 0,
+                        emotionalRegulation: 0,
+                        alexithymia: 0, // difficulty identifying emotions
+                        suppressedEmotions: [],
+                        avoidedEmotions: [],
+                        emotionalTriggers: [],
+                        emotionalPatterns: [],
+                        moodHistory: [],
+                        moodCycles: [],
+                        currentMood: null,
+                        anxietyLevel: 0,
+                        depressionLevel: 0,
+                        angerManagement: 0,
+                        shameCore: [],
+                        guiltPatterns: []
+                    },
+
+                    // === Personality Analysis ===
+                    personality: {
+                        bigFive: {
+                            openness: null,
+                            conscientiousness: null,
+                            extraversion: null,
+                            agreeableness: null,
+                            neuroticism: null
+                        },
+                        mbtiIndicators: null,
+                        enneagramIndicators: null,
+                        
+                        communicationStyle: {
+                            directness: 0,
+                            emotionalExpression: 0,
+                            assertiveness: 0,
+                            conflictStyle: null,
+                            preferredTopics: [],
+                            avoidedTopics: [],
+                            languagePatterns: [],
+                            metaphorsUsed: [],
+                            speechPatterns: []
+                        },
+
+                        thinkingPatterns: {
+                            cognitiveDistortions: [],
+                            ruminationTendency: 0,
+                            catastrophizing: 0,
+                            blackAndWhiteThinking: 0,
+                            personalization: 0,
+                            mindReading: 0,
+                            fortuneTelling: 0,
+                            shouldStatements: [],
+                            mentalFiltering: 0,
+                            discountingPositive: 0,
+                            emotionalReasoning: 0,
+                            labeling: [],
+                            magnification: 0,
+                            minimization: 0
+                        },
+
+                        decisionMaking: {
+                            style: null,
+                            avoidance: 0,
+                            impulsivity: 0,
+                            overthinking: 0
+                        }
+                    },
+
+                    // === Relationship Patterns ===
+                    relationships: {
+                        withFamily: {
+                            mother: { quality: null, issues: [], positives: [] },
+                            father: { quality: null, issues: [], positives: [] },
+                            siblings: [],
+                            extended: []
+                        },
+                        romantic: {
+                            current: null,
+                            history: [],
+                            patterns: [],
+                            issues: [],
+                            attractions: [],
+                            dealBreakers: []
+                        },
+                        friendships: {
+                            quality: null,
+                            issues: [],
+                            patterns: []
+                        },
+                        withAuthority: {
+                            patterns: [],
+                            issues: []
+                        },
+                        boundaryIssues: [],
+                        codependencyLevel: 0,
+                        peoplepleasing: 0,
+                        conflictAvoidance: 0
+                    },
+
+                    // === Behaviors & Habits ===
+                    behaviors: {
+                        selfDestructive: [],
+                        selfHarm: [],
+                        selfSabotage: [],
+                        selfCare: [],
+                        avoidance: [],
+                        compulsive: [],
+                        positive: [],
+                        routines: [],
+                        sleepPatterns: [],
+                        eatingPatterns: [],
+                        exerciseHabits: [],
+                        socialHabits: []
+                    },
+
+                    // === Life Areas ===
+                    lifeAreas: {
+                        work: { satisfaction: 0, issues: [], goals: [] },
+                        finance: { satisfaction: 0, issues: [], goals: [] },
+                        health: { satisfaction: 0, issues: [], goals: [] },
+                        social: { satisfaction: 0, issues: [], goals: [] },
+                        spiritual: { satisfaction: 0, issues: [], goals: [] },
+                        creative: { satisfaction: 0, issues: [], goals: [] },
+                        leisure: { satisfaction: 0, issues: [], goals: [] }
+                    },
+
+                    // === Therapeutic Goals ===
+                    goals: {
+                        immediate: [],
+                        shortTerm: [],
+                        longTerm: [],
+                        completed: [],
+                        abandoned: [],
+                        inProgress: []
+                    },
+
+                    // === Progress Tracking ===
+                    progress: {
+                        milestones: [],
+                        breakthroughs: [],
+                        insights: [],
+                        setbacks: [],
+                        overallScore: 0,
+                        weeklyScores: [],
+                        areasImproved: [],
+                        areasNeedingWork: []
+                    },
+
+                    // === AI Observations ===
+                    aiObservations: {
+                        keyInsights: [],
+                        patterns: [],
+                        concerns: [],
+                        urgentConcerns: [],
+                        recommendations: [],
+                        hypotheses: [],
+                        questionsToExplore: [],
+                        therapeuticApproaches: []
+                    },
+
+                    // === Significant Data ===
+                    significant: {
+                        phrases: [],
+                        quotes: [],
+                        dreams: [],
+                        memories: [],
+                        events: [],
+                        dates: [],
+                        people: [],
+                        places: [],
+                        themes: []
+                    },
+
+                    // === Weekly Reports ===
+                    weeklyReports: [],
+
+                    // === Session Data ===
+                    sessions: [],
+
+                    // === User Preferences ===
+                    preferences: {
+                        approachStyle: null,
+                        challengeLevel: 0,
+                        feedbackPreference: null,
+                        pacePreference: null,
+                        topicsToAvoid: [],
+                        triggerWarnings: [],
+                        communicationPreferences: []
+                    }
+                };
+            }
+
+            load() {
+                this.conversations = JSON.parse(localStorage.getItem('nafsy_conversations') || '[]');
+                this.currentChat = JSON.parse(localStorage.getItem('nafsy_current_chat') || '[]');
+                this.profile = JSON.parse(localStorage.getItem('nafsy_profile') || JSON.stringify(this.defaultProfile));
+                this.stats = JSON.parse(localStorage.getItem('nafsy_stats') || '{"totalMessages":0,"totalSessions":0,"startDate":""}');
+                
+                // Merge any missing fields from default
+                this.profile = this.deepMerge(this.defaultProfile, this.profile);
+                
+                if (!this.stats.startDate) {
+                    this.stats.startDate = new Date().toISOString();
+                    this.profile.user.joinDate = this.stats.startDate;
+                    this.save();
+                }
+            }
+
+            deepMerge(target, source) {
+                const result = { ...target };
+                for (const key in source) {
+                    if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+                        result[key] = this.deepMerge(target[key] || {}, source[key]);
+                    } else if (source[key] !== undefined) {
+                        result[key] = source[key];
+                    }
+                }
+                return result;
+            }
+
+            save() {
+                this.profile.user.lastActive = new Date().toISOString();
+                localStorage.setItem('nafsy_conversations', JSON.stringify(this.conversations));
+                localStorage.setItem('nafsy_current_chat', JSON.stringify(this.currentChat));
+                localStorage.setItem('nafsy_profile', JSON.stringify(this.profile));
+                localStorage.setItem('nafsy_stats', JSON.stringify(this.stats));
+            }
+
+            // === Message Management ===
+            addMessage(role, content, imageData = null) {
+                const msg = {
+                    id: Date.now(),
+                    role: role,
+                    content: content,
+                    timestamp: new Date().toISOString(),
+                    sessionId: this.getCurrentSessionId()
+                };
+                if (imageData) msg.imageData = imageData;
+                
+                this.currentChat.push(msg);
+                this.stats.totalMessages++;
+                this.profile.user.totalMessages++;
+                
+                // Auto-analyze message for patterns
+                if (role === 'user') {
+                    this.analyzeUserMessage(content);
+                }
+                
+                this.save();
+            }
+
+            // === Auto Analysis ===
+            analyzeUserMessage(content) {
+                const lowerContent = content.toLowerCase();
+                const arabicContent = content;
+                
+                // Detect emotional indicators
+                const emotions = this.detectEmotions(arabicContent);
+                if (emotions.length > 0) {
+                    this.profile.emotional.moodHistory.push({
+                        emotions: emotions,
+                        timestamp: new Date().toISOString(),
+                        context: content.substring(0, 100)
+                    });
+                }
+
+                // Detect ADHD indicators
+                this.detectADHDIndicators(content);
+
+                // Detect significant people mentioned
+                this.detectPeopleMentioned(content);
+
+                // Detect themes
+                this.detectThemes(content);
+
+                // Keep only last 100 mood entries
+                if (this.profile.emotional.moodHistory.length > 100) {
+                    this.profile.emotional.moodHistory = this.profile.emotional.moodHistory.slice(-100);
+                }
+            }
+
+            detectEmotions(content) {
+                const emotions = [];
+                const emotionKeywords = {
+                    anger: ['غضب', 'زعلان', 'مقهور', 'عصبي', 'قرفان', 'متنرفز'],
+                    sadness: ['حزين', 'زهقت', 'تعبان', 'مكتئب', 'ضايق', 'مش مبسوط'],
+                    anxiety: ['قلقان', 'خايف', 'متوتر', 'مش مرتاح', 'قلق'],
+                    shame: ['خجلان', 'مكسوف', 'عيب', 'حرام'],
+                    loneliness: ['وحيد', 'لوحدي', 'محدش', 'منعزل'],
+                    hope: ['أمل', 'متفائل', 'إن شاء الله', 'يارب'],
+                    love: ['حب', 'بحبه', 'بحبها', 'قلبي'],
+                    fear: ['خوف', 'بخاف', 'مرعوب', 'فزعت']
+                };
+
+                for (const [emotion, keywords] of Object.entries(emotionKeywords)) {
+                    if (keywords.some(kw => content.includes(kw))) {
+                        emotions.push(emotion);
+                    }
+                }
+                return emotions;
+            }
+
+            detectADHDIndicators(content) {
+                const adhdPhrases = [
+                    'مش قادر أركز', 'بنسى', 'دماغي', 'تشتت', 'ملل', 
+                    'مش قادر أخلص', 'بأجل', 'وقت', 'متأخر', 'فوضى',
+                    'مش منظم', 'بقاطع', 'مستعجل', 'ملولة', 'طاقة'
+                ];
+                
+                const found = adhdPhrases.filter(phrase => content.includes(phrase));
+                if (found.length > 0) {
+                    found.forEach(indicator => {
+                        if (!this.profile.psychological.adhd.indicators.inattention.includes(indicator)) {
+                            this.profile.psychological.adhd.indicators.inattention.push(indicator);
+                        }
+                    });
+                    
+                    // Update ADHD suspicion
+                    const totalIndicators = this.profile.psychological.adhd.indicators.inattention.length;
+                    if (totalIndicators >= 3) {
+                        this.profile.psychological.adhd.suspected = true;
+                    }
+                }
+            }
+
+            detectPeopleMentioned(content) {
+                // Simple detection for common relationship terms
+                const relationTerms = {
+                    'أمي': 'mother',
+                    'ماما': 'mother',
+                    'أبي': 'father',
+                    'بابا': 'father',
+                    'أخي': 'brother',
+                    'أختي': 'sister',
+                    'زوجي': 'husband',
+                    'جوزي': 'husband',
+                    'زوجتي': 'wife',
+                    'مراتي': 'wife',
+                    'حبيبي': 'partner',
+                    'حبيبتي': 'partner',
+                    'صاحبي': 'friend',
+                    'صاحبتي': 'friend'
+                };
+
+                for (const [term, relation] of Object.entries(relationTerms)) {
+                    if (content.includes(term)) {
+                        const existing = this.profile.significant.people.find(p => p.relation === relation);
+                        if (!existing) {
+                            this.profile.significant.people.push({
+                                relation: relation,
+                                mentions: 1,
+                                firstMentioned: new Date().toISOString()
+                            });
+                        } else {
+                            existing.mentions++;
+                        }
+                    }
+                }
+            }
+
+            detectThemes(content) {
+                const themes = {
+                    'trauma': ['صدمة', 'ألم', 'جرح', 'ذكريات'],
+                    'relationships': ['علاقة', 'حب', 'خيانة', 'ثقة'],
+                    'family': ['أهل', 'عيلة', 'بيت'],
+                    'work': ['شغل', 'مدير', 'زملاء'],
+                    'self_worth': ['قيمتي', 'أستاهل', 'مش كويس'],
+                    'addiction': ['إدمان', 'مخدرات', 'كحول', 'بطل'],
+                    'anxiety': ['قلق', 'خوف', 'توتر'],
+                    'depression': ['اكتئاب', 'حزن', 'يأس']
+                };
+
+                for (const [theme, keywords] of Object.entries(themes)) {
+                    if (keywords.some(kw => content.includes(kw))) {
+                        if (!this.profile.significant.themes.includes(theme)) {
+                            this.profile.significant.themes.push(theme);
+                        }
+                    }
+                }
+            }
+
+            // === Conversation Management ===
+            getCurrentSessionId() {
+                if (!this._currentSessionId) {
+                    this._currentSessionId = Date.now();
+                }
+                return this._currentSessionId;
+            }
+
+            saveConversation() {
+                if (this.currentChat.length > 0) {
+                    const sessionSummary = this.generateSessionSummary();
+                    this.conversations.push({
+                        id: Date.now(),
+                        date: new Date().toISOString(),
+                        messages: [...this.currentChat],
+                        summary: sessionSummary,
+                        emotionalTone: this.getSessionEmotionalTone()
+                    });
+                    this.stats.totalSessions++;
+                    this.profile.user.totalSessions++;
+                    this._currentSessionId = null;
+                    this.save();
+                }
+            }
+
+            generateSessionSummary() {
+                if (this.currentChat.length === 0) return '';
+                const userMessages = this.currentChat.filter(m => m.role === 'user');
+                if (userMessages.length === 0) return '';
+                return userMessages[0].content.substring(0, 100) + '...';
+            }
+
+            getSessionEmotionalTone() {
+                const recentMoods = this.profile.emotional.moodHistory.slice(-10);
+                if (recentMoods.length === 0) return 'neutral';
+                
+                const allEmotions = recentMoods.flatMap(m => m.emotions);
+                const counts = {};
+                allEmotions.forEach(e => counts[e] = (counts[e] || 0) + 1);
+                
+                let maxCount = 0;
+                let dominant = 'neutral';
+                for (const [emotion, count] of Object.entries(counts)) {
+                    if (count > maxCount) {
+                        maxCount = count;
+                        dominant = emotion;
+                    }
+                }
+                return dominant;
+            }
+
+            newChat() {
+                this.saveConversation();
+                this.currentChat = [];
+                this.save();
+            }
+
+            getHistoryForAPI() {
+                const history = [];
+                this.currentChat.forEach(msg => {
+                    const parts = [];
+                    if (msg.imageData) {
+                        parts.push({
+                            inline_data: {
+                                mime_type: msg.imageData.mimeType,
+                                data: msg.imageData.base64
+                            }
+                        });
+                    }
+                    parts.push({ text: msg.content });
+                    
+                    history.push({
+                        role: msg.role === 'user' ? 'user' : 'model',
+                        parts: parts
+                    });
+                });
+                return history;
+            }
+
+            // === Profile Summary for AI ===
+            getProfileSummaryForAI() {
+                const p = this.profile;
+                let summary = `\n\n=== ملف المستخدم الشخصي ===\n`;
+                
+                if (p.user.name) summary += `الاسم: ${p.user.name}\n`;
+                if (p.user.age) summary += `العمر: ${p.user.age}\n`;
+                if (p.user.occupation) summary += `المهنة: ${p.user.occupation}\n`;
+                
+                summary += `\nعدد الجلسات: ${p.user.totalSessions}\n`;
+                summary += `عدد الرسائل: ${p.user.totalMessages}\n`;
+                
+                if (p.psychological.attachmentStyle) {
+                    summary += `\nنمط التعلق: ${p.psychological.attachmentStyle}\n`;
+                }
+                
+                if (p.psychological.traumas.length > 0) {
+                    summary += `\nالصدمات المعروفة: ${p.psychological.traumas.join(', ')}\n`;
+                }
+                
+                if (p.psychological.narcissisticAbuse.identified) {
+                    summary += `\nتعرض لإساءة نرجسية: نعم\n`;
+                    if (p.psychological.narcissisticAbuse.traumaBonding.level > 0) {
+                        summary += `مستوى الترابط الصدمي: ${p.psychological.narcissisticAbuse.traumaBonding.level}/10\n`;
+                    }
+                }
+                
+                if (p.psychological.addictions.substances.length > 0 || p.psychological.addictions.behaviors.length > 0) {
+                    summary += `\nإدمانات: ${[...p.psychological.addictions.substances, ...p.psychological.addictions.behaviors].join(', ')}\n`;
+                    if (p.psychological.addictions.recoveryStage) {
+                        summary += `مرحلة التعافي: ${p.psychological.addictions.recoveryStage}\n`;
+                    }
+                }
+                
+                if (p.psychological.adhd.suspected || p.psychological.adhd.diagnosed) {
+                    summary += `\nADHD: ${p.psychological.adhd.diagnosed ? 'مشخص' : 'مشتبه به'}\n`;
+                }
+                
+                if (p.emotional.dominantEmotions.length > 0) {
+                    summary += `\nالمشاعر السائدة: ${p.emotional.dominantEmotions.join(', ')}\n`;
+                }
+                
+                if (p.personality.thinkingPatterns.cognitiveDistortions.length > 0) {
+                    summary += `\nالتشوهات المعرفية: ${p.personality.thinkingPatterns.cognitiveDistortions.join(', ')}\n`;
+                }
+                
+                if (p.significant.themes.length > 0) {
+                    summary += `\nالمواضيع الرئيسية: ${p.significant.themes.join(', ')}\n`;
+                }
+                
+                if (p.significant.people.length > 0) {
+                    summary += `\nأشخاص مهمين: ${p.significant.people.map(pp => pp.relation).join(', ')}\n`;
+                }
+                
+                if (p.goals.inProgress.length > 0) {
+                    summary += `\nأهداف حالية: ${p.goals.inProgress.join(', ')}\n`;
+                }
+                
+                if (p.aiObservations.keyInsights.length > 0) {
+                    summary += `\nملاحظات سابقة: ${p.aiObservations.keyInsights.slice(-5).join('; ')}\n`;
+                }
+                
+                return summary;
+            }
+
+            // === Update Methods ===
+            updateUser(data) {
+                Object.assign(this.profile.user, data);
+                this.save();
+            }
+
+            addTrauma(trauma) {
+                if (!this.profile.psychological.traumas.includes(trauma)) {
+                    this.profile.psychological.traumas.push(trauma);
+                    this.save();
+                }
+            }
+
+            addInsight(insight) {
+                this.profile.aiObservations.keyInsights.push({
+                    text: insight,
+                    date: new Date().toISOString()
+                });
+                // Keep only last 50
+                if (this.profile.aiObservations.keyInsights.length > 50) {
+                    this.profile.aiObservations.keyInsights = this.profile.aiObservations.keyInsights.slice(-50);
+                }
+                this.save();
+            }
+
+            addTrait(trait) {
+                if (!this.profile.psychological.strengths.includes(trait)) {
+                    this.profile.psychological.strengths.push(trait);
+                    this.save();
+                }
+            }
+
+            addGoal(goal, type = 'shortTerm') {
+                if (!this.profile.goals[type]) this.profile.goals[type] = [];
+                this.profile.goals[type].push({
+                    text: goal,
+                    addedDate: new Date().toISOString(),
+                    status: 'active'
+                });
+                this.profile.goals.inProgress.push(goal);
+                this.save();
+            }
+
+            completeGoal(goal) {
+                const index = this.profile.goals.inProgress.indexOf(goal);
+                if (index > -1) {
+                    this.profile.goals.inProgress.splice(index, 1);
+                    this.profile.goals.completed.push({
+                        text: goal,
+                        completedDate: new Date().toISOString()
+                    });
+                    this.addMilestone(`أنجز هدف: ${goal}`);
+                    this.save();
+                }
+            }
+
+            addMilestone(milestone) {
+                this.profile.progress.milestones.push({
+                    text: milestone,
+                    date: new Date().toISOString()
+                });
+                this.save();
+            }
+
+            addBreakthrough(breakthrough) {
+                this.profile.progress.breakthroughs.push({
+                    text: breakthrough,
+                    date: new Date().toISOString()
+                });
+                this.save();
+            }
+
+            setNarcissisticAbuse(identified) {
+                this.profile.psychological.narcissisticAbuse.identified = identified;
+                this.save();
+            }
+
+            updateTraumaBondingLevel(level) {
+                this.profile.psychological.narcissisticAbuse.traumaBonding.level = level;
+                this.save();
+            }
+
+            addAddiction(type, name) {
+                if (type === 'substance') {
+                    if (!this.profile.psychological.addictions.substances.includes(name)) {
+                        this.profile.psychological.addictions.substances.push(name);
+                    }
+                } else {
+                    if (!this.profile.psychological.addictions.behaviors.includes(name)) {
+                        this.profile.psychological.addictions.behaviors.push(name);
+                    }
+                }
+                this.save();
+            }
+
+            setRecoveryStage(stage) {
+                this.profile.psychological.addictions.recoveryStage = stage;
+                this.save();
+            }
+
+            setADHD(status) {
+                this.profile.psychological.adhd.suspected = status.suspected || false;
+                this.profile.psychological.adhd.diagnosed = status.diagnosed || false;
+                this.profile.psychological.adhd.type = status.type || null;
+                this.save();
+            }
+
+            addCognitiveDistortion(distortion) {
+                if (!this.profile.personality.thinkingPatterns.cognitiveDistortions.includes(distortion)) {
+                    this.profile.personality.thinkingPatterns.cognitiveDistortions.push(distortion);
+                    this.save();
+                }
+            }
+
+            // === Weekly Reports ===
+            addWeeklyReport(report) {
+                this.profile.weeklyReports.unshift({
+                    content: report,
+                    date: new Date().toISOString(),
+                    weekNumber: this.getWeekNumber()
+                });
+                // Keep only last 52 weeks
+                if (this.profile.weeklyReports.length > 52) {
+                    this.profile.weeklyReports = this.profile.weeklyReports.slice(0, 52);
+                }
+                this.save();
+            }
+
+            getWeekNumber() {
+                const now = new Date();
+                const start = new Date(now.getFullYear(), 0, 1);
+                const diff = now - start;
+                const oneWeek = 604800000;
+                return Math.ceil(diff / oneWeek);
+            }
+
+            // === Conversation Access ===
+            getAllConversations() {
+                return this.conversations;
+            }
+
+            loadConversation(id) {
+                const conv = this.conversations.find(c => c.id === id);
+                if (conv) {
+                    this.currentChat = [...conv.messages];
+                    this.save();
+                    return conv.messages;
+                }
+                return [];
+            }
+
+            deleteConversation(id) {
+                this.conversations = this.conversations.filter(c => c.id !== id);
+                this.save();
+            }
+
+            // === Data Management ===
+            clearAll() {
+                localStorage.removeItem('nafsy_conversations');
+                localStorage.removeItem('nafsy_current_chat');
+                localStorage.removeItem('nafsy_profile');
+                localStorage.removeItem('nafsy_stats');
+                localStorage.removeItem('nafsy_logged_in');
+                this.conversations = [];
+                this.currentChat = [];
+                this.profile = JSON.parse(JSON.stringify(this.defaultProfile));
+                this.stats = {totalMessages: 0, totalSessions: 0, startDate: new Date().toISOString()};
+            }
+
+            exportData() {
+                return {
+                    conversations: this.conversations,
+                    currentChat: this.currentChat,
+                    profile: this.profile,
+                    stats: this.stats,
+                    exportDate: new Date().toISOString(),
+                    version: '2.0'
+                };
+            }
+
+            importData(data) {
+                if (data.conversations) this.conversations = data.conversations;
+                if (data.currentChat) this.currentChat = data.currentChat;
+                if (data.profile) this.profile = this.deepMerge(this.defaultProfile, data.profile);
+                if (data.stats) this.stats = data.stats;
+                this.save();
+            }
+
+            getStats() {
+                const daysSinceStart = Math.floor((new Date() - new Date(this.stats.startDate)) / (1000 * 60 * 60 * 24)) || 1;
+                return {
+                    totalMessages: this.stats.totalMessages,
+                    totalSessions: this.stats.totalSessions,
+                    daysSinceStart: daysSinceStart,
+                    themes: this.profile.significant.themes,
+                    adhdSuspected: this.profile.psychological.adhd.suspected,
+                    narcissisticAbuseIdentified: this.profile.psychological.narcissisticAbuse.identified
+                };
+            }
+
+            // === Full Profile for Display ===
+            getFullProfile() {
+                return this.profile;
+            }
+        }
+
+        const memory = new Memory();
+
+        // ===== GEMINI API =====
+        async function callGemini(userMessage, imageData = null) {
+            const history = memory.getHistoryForAPI();
+            
+            // Get user profile summary for context
+            const profileSummary = memory.getProfileSummaryForAI();
+            const fullPrompt = SYSTEM_PROMPT + profileSummary;
+            
+            // Build user message parts
+            const userParts = [];
+            if (imageData) {
+                userParts.push({
+                    inline_data: {
+                        mime_type: imageData.mimeType,
+                        data: imageData.base64
+                    }
+                });
+            }
+            userParts.push({ text: userMessage });
+
+            const requestBody = {
+                contents: [
+                    {
+                        role: 'user',
+                        parts: [{ text: fullPrompt }]
+                    },
+                    {
+                        role: 'model',
+                        parts: [{ text: 'فهمت تماماً. أنا نفسي، معالجك النفسي الشخصي. أنا هنا عشانك، لن أحكم عليك أبداً، ولن أرفض أي موضوع. احكيلي كل شيء.' }]
+                    },
+                    ...history,
+                    {
+                        role: 'user',
+                        parts: userParts
+                    }
+                ],
+                generationConfig: {
+                    temperature: 0.9,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 4096
+                },
+                safetySettings: [
+                    { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE' },
+                    { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_NONE' },
+                    { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_NONE' },
+                    { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' }
+                ]
+            };
+
+            const response = await fetch(`${API_URL}?key=${API_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                console.error('API Error:', errorData);
+                throw new Error('فشل الاتصال بالخادم');
+            }
+
+            const data = await response.json();
+            
+            if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                return data.candidates[0].content.parts[0].text;
+            }
+            
+            throw new Error('رد غير متوقع من الخادم');
+        }
+
+        // ===== FILE HANDLING =====
+        let selectedFile = null;
+        let selectedImageData = null;
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            selectedFile = file;
+            const preview = document.getElementById('filePreview');
+            const previewImage = document.getElementById('filePreviewImage');
+            const previewIcon = document.getElementById('filePreviewIcon');
+            const previewName = document.getElementById('filePreviewName');
+
+            preview.classList.add('active');
+            previewName.textContent = file.name;
+
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                    previewIcon.style.display = 'none';
+                    
+                    // Store base64 for API
+                    selectedImageData = {
+                        mimeType: file.type,
+                        base64: e.target.result.split(',')[1]
+                    };
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewImage.style.display = 'none';
+                previewIcon.style.display = 'block';
+                previewIcon.textContent = file.type.includes('pdf') ? '📄' : '📎';
+                selectedImageData = null;
+            }
+        }
+
+        function removeFile() {
+            selectedFile = null;
+            selectedImageData = null;
+            document.getElementById('filePreview').classList.remove('active');
+            document.getElementById('fileInput').value = '';
+        }
+
+        // ===== VOICE INPUT =====
+        let isListening = false;
+        let recognition = null;
+
+        function toggleVoiceInput() {
+            const btn = document.getElementById('voiceBtn');
+            
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('المتصفح لا يدعم الإدخال الصوتي');
+                return;
+            }
+
+            if (isListening) {
+                recognition.stop();
+                isListening = false;
+                btn.classList.remove('recording');
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'ar-SA';
+            recognition.continuous = false;
+            recognition.interimResults = true;
+
+            recognition.onstart = () => {
+                isListening = true;
+                btn.classList.add('recording');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = Array.from(event.results)
+                    .map(result => result[0].transcript)
+                    .join('');
+                document.getElementById('messageInput').value = transcript;
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                btn.classList.remove('recording');
+            };
+
+            recognition.onerror = () => {
+                isListening = false;
+                btn.classList.remove('recording');
+            };
+
+            recognition.start();
+        }
+
+        // ===== CHAT FUNCTIONS =====
+        function addMessageToUI(content, type, imageData = null, scroll = true) {
+            const area = document.getElementById('messagesArea');
+            const typing = document.getElementById('typingIndicator');
+            
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message message-${type}`;
+            
+            if (imageData && type === 'user') {
+                const img = document.createElement('img');
+                img.src = `data:${imageData.mimeType};base64,${imageData.base64}`;
+                img.className = 'message-image';
+                msgDiv.appendChild(img);
+            }
+            
+            const textDiv = document.createElement('div');
+            textDiv.textContent = content;
+            msgDiv.appendChild(textDiv);
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            timeDiv.textContent = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+            msgDiv.appendChild(timeDiv);
+            
+            area.insertBefore(msgDiv, typing);
+            
+            if (scroll) {
+                area.scrollTop = area.scrollHeight;
+            }
+        }
+
+        function loadCurrentChat() {
+            const messages = memory.currentChat;
+            const area = document.getElementById('messagesArea');
+            const welcome = document.getElementById('welcomeMessage');
+            const typing = document.getElementById('typingIndicator');
+            
+            // Clear messages
+            area.innerHTML = '';
+            
+            if (messages.length === 0) {
+                area.appendChild(welcome);
+            }
+            
+            messages.forEach(msg => {
+                addMessageToUI(msg.content, msg.role === 'user' ? 'user' : 'ai', msg.imageData, false);
+            });
+            
+            area.appendChild(typing);
+            area.scrollTop = area.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message && !selectedFile) return;
+            
+            let displayMessage = message;
+            if (selectedFile && !selectedImageData) {
+                displayMessage = `[ملف: ${selectedFile.name}]\n${message}`;
+            }
+            
+            const imageDataToSend = selectedImageData;
+            
+            input.value = '';
+            autoResize(input);
+            removeFile();
+            
+            // Add user message
+            addMessageToUI(displayMessage, 'user', imageDataToSend);
+            memory.addMessage('user', displayMessage, imageDataToSend);
+            
+            // Remove welcome message
+            const welcome = document.getElementById('welcomeMessage');
+            if (welcome && welcome.parentNode) welcome.remove();
+            
+            // Show typing
+            document.getElementById('typingIndicator').style.display = 'block';
+            document.getElementById('messagesArea').scrollTop = document.getElementById('messagesArea').scrollHeight;
+            
+            try {
+                const response = await callGemini(displayMessage, imageDataToSend);
+                document.getElementById('typingIndicator').style.display = 'none';
+                addMessageToUI(response, 'ai');
+                memory.addMessage('assistant', response);
+            } catch (error) {
+                document.getElementById('typingIndicator').style.display = 'none';
+                addMessageToUI('عذراً، حدث خطأ في الاتصال. حاول مرة أخرى.', 'ai');
+                console.error('Error:', error);
+            }
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        }
+
+        // ===== LOGIN =====
+        function handleLogin(event) {
+            event.preventDefault();
+            const password = document.getElementById('passwordInput').value;
+            if (password === PASSWORD) {
+                document.getElementById('loginPage').classList.remove('active');
+                document.getElementById('chatPage').classList.add('active');
+                localStorage.setItem('nafsy_logged_in', 'true');
+                loadCurrentChat();
+                renderResources();
+                renderProfile();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                setTimeout(() => {
+                    document.getElementById('loginError').style.display = 'none';
+                }, 2000);
+            }
+            return false;
+        }
+
+        function logout() {
+            localStorage.removeItem('nafsy_logged_in');
+            document.getElementById('chatPage').classList.remove('active');
+            document.getElementById('resourcesPage').classList.remove('active');
+            document.getElementById('profilePage').classList.remove('active');
+            document.getElementById('loginPage').classList.add('active');
+            document.getElementById('passwordInput').value = '';
+            closeMenu();
+        }
+
+        // ===== NAVIGATION =====
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            if (page === 'chat') {
+                document.getElementById('chatPage').classList.add('active');
+            } else if (page === 'resources') {
+                document.getElementById('resourcesPage').classList.add('active');
+                renderResources();
+            } else if (page === 'profile') {
+                document.getElementById('profilePage').classList.add('active');
+                renderProfile();
+            }
+            
+            // Update nav
+            document.querySelectorAll('.nav-item').forEach(n => {
+                if (n.textContent.includes(page === 'chat' ? 'المحادثة' : page === 'resources' ? 'الموارد' : 'ملفي')) {
+                    n.classList.add('active');
+                }
+            });
+        }
+
+        // ===== MENU =====
+        function openMenu() {
+            document.getElementById('menuOverlay').classList.add('active');
+            document.getElementById('menuPanel').classList.add('open');
+        }
+
+        function closeMenu() {
+            document.getElementById('menuOverlay').classList.remove('active');
+            document.getElementById('menuPanel').classList.remove('open');
+        }
+
+        // ===== HISTORY =====
+        function openHistory() {
+            closeMenu();
+            const panel = document.getElementById('historyPanel');
+            const list = document.getElementById('historyList');
+            
+            const conversations = memory.getAllConversations();
+            list.innerHTML = '';
+            
+            if (conversations.length === 0) {
+                list.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 40px;">لا توجد محادثات سابقة</p>';
+            } else {
+                [...conversations].reverse().forEach(conv => {
+                    const div = document.createElement('div');
+                    div.className = 'history-item';
+                    div.onclick = () => loadHistoryConversation(conv.id);
+                    
+                    const date = new Date(conv.date);
+                    const preview = conv.messages[0]?.content?.substring(0, 50) || 'محادثة';
+                    
+                    div.innerHTML = `
+                        <div class="history-date">${date.toLocaleDateString('ar-EG')} - ${date.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' })}</div>
+                        <div class="history-preview">${preview}...</div>
+                    `;
+                    list.appendChild(div);
+                });
+            }
+            
+            panel.classList.add('active');
+        }
+
+        function closeHistory() {
+            document.getElementById('historyPanel').classList.remove('active');
+        }
+
+        function loadHistoryConversation(id) {
+            memory.loadConversation(id);
+            loadCurrentChat();
+            closeHistory();
+        }
+
+        function newChat() {
+            memory.newChat();
+            const area = document.getElementById('messagesArea');
+            const typing = document.getElementById('typingIndicator');
+            
+            area.innerHTML = `
+                <div class="welcome-message" id="welcomeMessage">
+                    <div class="welcome-avatar">
+                        <div class="avatar-eyes">
+                            <div class="eye"></div>
+                            <div class="eye"></div>
+                        </div>
+                    </div>
+                    <p class="welcome-text">أهلاً بك... أنا نفسي، معالجك النفسي الشخصي.<br>احكيلي اللي في بالك، أنا هنا عشانك.</p>
+                </div>
+            `;
+            area.appendChild(typing);
+            closeMenu();
+        }
+
+        function exportData() {
+            const data = memory.exportData();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `nafsy-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            closeMenu();
+        }
+
+        function clearAllData() {
+            if (confirm('هل أنت متأكد من مسح كل البيانات؟ لا يمكن التراجع عن هذا.')) {
+                memory.clearAll();
+                newChat();
+                renderProfile();
+                closeMenu();
+            }
+        }
+
+        // ===== WEEKLY REPORT =====
+        async function requestWeeklyReport() {
+            closeMenu();
+            showPage('chat');
+            
+            const reportPrompt = `بناءً على كل محادثاتنا السابقة، أريد منك أن تكتب لي تقريراً أسبوعياً شاملاً يتضمن:
+
+1. ملخص لأهم المواضيع التي ناقشناها
+2. الأنماط السلوكية والفكرية التي لاحظتها
+3. نقاط القوة التي أظهرتها
+4. المجالات التي تحتاج لعمل أكثر
+5. توصيات محددة للأسبوع القادم
+6. تقييم للتقدم الذي أحرزته
+
+اكتب التقرير بشكل مفصل ومحدد بناءً على ما شاركته معك.`;
+
+            document.getElementById('messageInput').value = reportPrompt;
+            await sendMessage();
+        }
+
+        // ===== VOICE CALL =====
+        let callActive = false;
+        let callRecognition = null;
+        let isMuted = false;
+
+        function startCall() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('المتصفح لا يدعم المكالمات الصوتية');
+                return;
+            }
+            
+            document.getElementById('callModal').classList.add('active');
+            document.getElementById('callStatus').textContent = 'أنا سامعك...';
+            document.getElementById('callTranscript').textContent = '';
+            callActive = true;
+            startCallListening();
+        }
+
+        function endCall() {
+            callActive = false;
+            if (callRecognition) callRecognition.stop();
+            window.speechSynthesis.cancel();
+            document.getElementById('callModal').classList.remove('active');
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('muteBtn').textContent = isMuted ? '🔇' : '🎤';
+            if (isMuted && callRecognition) {
+                callRecognition.stop();
+            } else if (!isMuted && callActive) {
+                startCallListening();
+            }
+        }
+
+        function startCallListening() {
+            if (!callActive || isMuted) return;
+            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            callRecognition = new SpeechRecognition();
+            callRecognition.lang = 'ar-SA';
+            callRecognition.continuous = true;
+            callRecognition.interimResults = true;
+
+            let finalTranscript = '';
+
+            callRecognition.onresult = async (event) => {
+                let interimTranscript = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+                
+                document.getElementById('callTranscript').textContent = finalTranscript + interimTranscript;
+                
+                // When there's a pause and final result
+                if (finalTranscript && event.results[event.results.length - 1].isFinal) {
+                    const userText = finalTranscript.trim();
+                    finalTranscript = '';
+                    
+                    if (userText.length > 2) {
+                        callRecognition.stop();
+                        document.getElementById('callStatus').textContent = 'جاري التفكير...';
+                        
+                        try {
+                            memory.addMessage('user', userText);
+                            const response = await callGemini(userText);
+                            memory.addMessage('assistant', response);
+                            
+                            speak(response);
+                        } catch (error) {
+                            speak('عذراً، حدث خطأ. حاول مرة أخرى.');
+                        }
+                    }
+                }
+            };
+
+            callRecognition.onerror = () => {
+                if (callActive && !isMuted) {
+                    setTimeout(startCallListening, 500);
+                }
+            };
+
+            callRecognition.onend = () => {
+                if (callActive && !isMuted) {
+                    setTimeout(startCallListening, 500);
+                }
+            };
+
+            callRecognition.start();
+            document.getElementById('callStatus').textContent = 'أنا سامعك...';
+        }
+
+        function speak(text) {
+            if (!callActive) return;
+            
+            document.getElementById('callStatus').textContent = 'بتكلم...';
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.9;
+            
+            // Find Arabic voice
+            const voices = speechSynthesis.getVoices();
+            const arabicVoice = voices.find(v => v.lang.includes('ar') && v.name.toLowerCase().includes('female')) ||
+                               voices.find(v => v.lang.includes('ar')) ||
+                               voices[0];
+            if (arabicVoice) utterance.voice = arabicVoice;
+            
+            utterance.onend = () => {
+                if (callActive && !isMuted) {
+                    document.getElementById('callStatus').textContent = 'أنا سامعك...';
+                    document.getElementById('callTranscript').textContent = '';
+                }
+            };
+            
+            speechSynthesis.speak(utterance);
+        }
+
+        // ===== RESOURCES =====
+        let currentResourceFilter = 'all';
+
+        function filterResources(category) {
+            currentResourceFilter = category;
+            document.querySelectorAll('.resources-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.textContent.includes(
+                    category === 'all' ? 'الكل' :
+                    category === 'trauma' ? 'الصدمات' :
+                    category === 'narcissism' ? 'النرجسية' :
+                    category === 'addiction' ? 'الإدمان' :
+                    category === 'sex' ? 'العلاج الجنسي' : 'ADHD'
+                ));
+            });
+            renderResources();
+        }
+
+        function renderResources() {
+            const list = document.getElementById('resourcesList');
+            const filtered = currentResourceFilter === 'all' 
+                ? RESOURCES 
+                : RESOURCES.filter(r => r.category === currentResourceFilter);
+            
+            if (filtered.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📚</div><p>لا توجد موارد في هذا القسم</p></div>';
+                return;
+            }
+            
+            list.innerHTML = filtered.map(resource => `
+                <div class="resource-card" onclick="openResource(${resource.id})">
+                    <span class="resource-type">${resource.type}</span>
+                    <h3 class="resource-title">${resource.title}</h3>
+                    <p class="resource-desc">${resource.description}</p>
+                    <div class="resource-meta">
+                        <span>⏱️ ${resource.duration}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openResource(id) {
+            const resource = RESOURCES.find(r => r.id === id);
+            if (!resource) return;
+            
+            if (resource.link) {
+                window.open(resource.link, '_blank');
+            } else if (resource.content) {
+                // Show content in chat
+                showPage('chat');
+                const area = document.getElementById('messagesArea');
+                const typing = document.getElementById('typingIndicator');
+                
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'message message-ai';
+                msgDiv.innerHTML = `<strong>${resource.title}</strong>\n\n${resource.content}`;
+                
+                const timeDiv = document.createElement('div');
+                timeDiv.className = 'message-time';
+                timeDiv.textContent = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+                msgDiv.appendChild(timeDiv);
+                
+                area.insertBefore(msgDiv, typing);
+                area.scrollTop = area.scrollHeight;
+            }
+        }
+
+        // ===== PROFILE =====
+        function renderProfile() {
+            const stats = memory.getStats();
+            const profile = memory.profile;
+            const psych = profile.psychological || {};
+            const emotional = profile.emotional || {};
+            const significant = profile.significant || {};
+            
+            const content = document.getElementById('profileContent');
+            
+            // Build psychological indicators section
+            let psychIndicators = '';
+            
+            if (psych.adhd?.suspected || psych.adhd?.diagnosed) {
+                psychIndicators += `<span class="indicator-tag adhd">ADHD ${psych.adhd.diagnosed ? '(مشخص)' : '(مشتبه)'}</span>`;
+            }
+            if (psych.narcissisticAbuse?.identified) {
+                psychIndicators += `<span class="indicator-tag narc">إساءة نرجسية</span>`;
+            }
+            if (psych.addictions?.substances?.length > 0 || psych.addictions?.behaviors?.length > 0) {
+                psychIndicators += `<span class="indicator-tag addiction">إدمان</span>`;
+            }
+            if (psych.traumas?.length > 0) {
+                psychIndicators += `<span class="indicator-tag trauma">صدمات</span>`;
+            }
+            
+            // Build themes section
+            let themesHtml = '';
+            if (significant.themes?.length > 0) {
+                const themeNames = {
+                    'trauma': 'الصدمات',
+                    'relationships': 'العلاقات',
+                    'family': 'العائلة',
+                    'work': 'العمل',
+                    'self_worth': 'قيمة الذات',
+                    'addiction': 'الإدمان',
+                    'anxiety': 'القلق',
+                    'depression': 'الاكتئاب'
+                };
+                themesHtml = significant.themes.map(t => 
+                    `<span class="theme-tag">${themeNames[t] || t}</span>`
+                ).join('');
+            }
+            
+            // Build mood history
+            let moodHtml = '';
+            if (emotional.moodHistory?.length > 0) {
+                const emotionNames = {
+                    'anger': '😠 غضب',
+                    'sadness': '😢 حزن',
+                    'anxiety': '😰 قلق',
+                    'shame': '😳 خجل',
+                    'loneliness': '😔 وحدة',
+                    'hope': '🌟 أمل',
+                    'love': '❤️ حب',
+                    'fear': '😨 خوف'
+                };
+                const recentMoods = emotional.moodHistory.slice(-10);
+                const moodCounts = {};
+                recentMoods.forEach(m => {
+                    m.emotions.forEach(e => {
+                        moodCounts[e] = (moodCounts[e] || 0) + 1;
+                    });
+                });
+                moodHtml = Object.entries(moodCounts)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5)
+                    .map(([e, c]) => `<span class="mood-tag">${emotionNames[e] || e} (${c})</span>`)
+                    .join('');
+            }
+            
+            // Build people section
+            let peopleHtml = '';
+            if (significant.people?.length > 0) {
+                const relationNames = {
+                    'mother': 'الأم',
+                    'father': 'الأب',
+                    'brother': 'أخ',
+                    'sister': 'أخت',
+                    'husband': 'زوج',
+                    'wife': 'زوجة',
+                    'partner': 'شريك',
+                    'friend': 'صديق'
+                };
+                peopleHtml = significant.people.map(p => 
+                    `<span class="people-tag">${relationNames[p.relation] || p.relation} (${p.mentions} ذكر)</span>`
+                ).join('');
+            }
+            
+            // Build insights section
+            let insightsHtml = '';
+            if (profile.aiObservations?.keyInsights?.length > 0) {
+                insightsHtml = profile.aiObservations.keyInsights.slice(-5).map(i => 
+                    `<div class="insight-item">💡 ${typeof i === 'object' ? i.text : i}</div>`
+                ).join('');
+            }
+            
+            // Build goals section  
+            let goalsHtml = '';
+            if (profile.goals?.inProgress?.length > 0) {
+                goalsHtml = profile.goals.inProgress.map(g => 
+                    `<div class="goal-item">🎯 ${typeof g === 'object' ? g.text : g}</div>`
+                ).join('');
+            }
+            
+            // Build completed goals
+            let completedGoalsHtml = '';
+            if (profile.goals?.completed?.length > 0) {
+                completedGoalsHtml = profile.goals.completed.slice(-3).map(g => 
+                    `<div class="goal-completed">✅ ${typeof g === 'object' ? g.text : g}</div>`
+                ).join('');
+            }
+            
+            content.innerHTML = `
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <div class="avatar-eyes">
+                            <div class="eye"></div>
+                            <div class="eye"></div>
+                        </div>
+                    </div>
+                    <h2 class="profile-name">${profile.user?.name || 'ملفك الشخصي'}</h2>
+                    <p class="profile-subtitle">تحليل نفسي مستمر مع نفسي</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">${stats.totalMessages}</div>
+                        <div class="stat-label">رسالة</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${stats.totalSessions}</div>
+                        <div class="stat-label">جلسة</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${stats.daysSinceStart}</div>
+                        <div class="stat-label">يوم معاً</div>
+                    </div>
+                </div>
+                
+                ${psychIndicators ? `
+                    <h3 class="section-title">🔍 المؤشرات النفسية المكتشفة</h3>
+                    <div class="indicators-container">
+                        ${psychIndicators}
+                    </div>
+                ` : ''}
+                
+                ${themesHtml ? `
+                    <h3 class="section-title">📌 المواضيع الرئيسية</h3>
+                    <div class="themes-container">
+                        ${themesHtml}
+                    </div>
+                ` : ''}
+                
+                ${moodHtml ? `
+                    <h3 class="section-title">💭 المشاعر الأخيرة</h3>
+                    <div class="moods-container">
+                        ${moodHtml}
+                    </div>
+                ` : ''}
+                
+                ${peopleHtml ? `
+                    <h3 class="section-title">👥 أشخاص مهمون</h3>
+                    <div class="people-container">
+                        ${peopleHtml}
+                    </div>
+                ` : ''}
+                
+                ${goalsHtml ? `
+                    <h3 class="section-title">🎯 أهدافك الحالية</h3>
+                    <div class="goals-container">
+                        ${goalsHtml}
+                    </div>
+                ` : ''}
+                
+                ${completedGoalsHtml ? `
+                    <h3 class="section-title">✨ إنجازات</h3>
+                    <div class="completed-container">
+                        ${completedGoalsHtml}
+                    </div>
+                ` : ''}
+                
+                ${insightsHtml ? `
+                    <h3 class="section-title">🧠 رؤى وملاحظات</h3>
+                    <div class="insights-container">
+                        ${insightsHtml}
+                    </div>
+                ` : ''}
+                
+                ${profile.weeklyReports?.length > 0 ? `
+                    <h3 class="section-title">📊 آخر تقرير أسبوعي</h3>
+                    <div class="weekly-report">
+                        <div class="report-header">
+                            <span class="report-title">التقرير الأسبوعي</span>
+                            <span class="report-date">${new Date(profile.weeklyReports[0].date).toLocaleDateString('ar-EG')}</span>
+                        </div>
+                        <p class="report-content">${profile.weeklyReports[0].content}</p>
+                    </div>
+                ` : `
+                    <div class="analysis-card">
+                        <h4 class="analysis-title">📊 التقرير الأسبوعي</h4>
+                        <p class="analysis-content">لم يتم إنشاء تقرير أسبوعي بعد. اطلب تقريراً من الشات.</p>
+                    </div>
+                `}
+                
+                <h3 class="section-title">🎯 تخصصاتي</h3>
+                <div class="analysis-card">
+                    <div class="trait-list">
+                        <span class="trait-tag">الصدمات النفسية (Gabor Maté)</span>
+                        <span class="trait-tag">الإساءة النرجسية والترابط الصدمي</span>
+                        <span class="trait-tag">الإدمان</span>
+                        <span class="trait-tag">العلاج الجنسي</span>
+                        <span class="trait-tag">ADHD</span>
+                    </div>
+                </div>
+                
+                <h3 class="section-title">⚙️ الإجراءات</h3>
+                <button class="action-btn" onclick="requestWeeklyReport(); showPage('chat');">
+                    📊 طلب تقرير أسبوعي
+                </button>
+                <button class="action-btn" onclick="requestPersonalityAnalysis(); showPage('chat');">
+                    🧠 طلب تحليل شخصية
+                </button>
+                <button class="action-btn" onclick="exportData()">
+                    📤 تصدير بياناتي
+                </button>
+                <button class="action-btn danger" onclick="clearAllData()">
+                    🗑️ مسح كل البيانات
+                </button>
+            `;
+        }
+        
+        function requestPersonalityAnalysis() {
+            const input = document.getElementById('messageInput');
+            input.value = 'أريد تحليل شامل لشخصيتي بناءً على محادثاتنا السابقة';
+            sendMessage();
+        }
+
+        // ===== INITIALIZATION =====
+        window.onload = () => {
+            // Preload voices
+            speechSynthesis.getVoices();
+            
+            // Check login
+            if (localStorage.getItem('nafsy_logged_in') === 'true') {
+                document.getElementById('loginPage').classList.remove('active');
+                document.getElementById('chatPage').classList.add('active');
+                loadCurrentChat();
+                renderResources();
+                renderProfile();
+            }
+        };
+    </script>
+</body>
+</html>
