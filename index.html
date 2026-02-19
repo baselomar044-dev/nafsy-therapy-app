@@ -1778,28 +1778,6 @@
     </style>
 </head>
 <body>
-    <!-- API KEY ONBOARDING PAGE -->
-    <div class="page" id="apiKeyPage">
-        <div class="onboarding-container">
-            <div class="avatar">
-                <div class="avatar-eyes">
-                    <div class="eye"></div>
-                    <div class="eye"></div>
-                </div>
-            </div>
-            <div class="onboarding-logo">نفسي</div>
-            <div class="onboarding-tagline">رفيقك النفسي الشخصي</div>
-            <h2 class="onboarding-title">مرحباً بك 👋</h2>
-            <p class="onboarding-desc">للبدء، أدخل مفتاح Gemini API الخاص بك. يمكنك الحصول عليه مجاناً من Google AI Studio.</p>
-            <input type="password" class="onboarding-input" id="apiKeyInput" placeholder="AIzaSy..." autocomplete="off" dir="ltr">
-            <button class="onboarding-btn" onclick="saveApiKey()">التالي ←</button>
-            <p class="onboarding-error" id="apiKeyError">الرجاء إدخال مفتاح API صحيح (يبدأ بـ AIza)</p>
-            <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">
-                المفتاح يُحفظ محلياً في جهازك فقط ولا يُرسل لأي مكان آخر.
-            </p>
-        </div>
-    </div>
-
     <!-- PIN SETUP PAGE -->
     <div class="page" id="pinSetupPage">
         <div class="onboarding-container">
@@ -4299,23 +4277,6 @@ ADHD والعواطف:
         let setupPinValue = '';
         let loginPinValue = '';
 
-        function saveApiKey() {
-            const key = document.getElementById('apiKeyInput').value.trim();
-            if (!key || !key.startsWith('AIza') || key.length < 30) {
-                document.getElementById('apiKeyError').style.display = 'block';
-                return;
-            }
-            document.getElementById('apiKeyError').style.display = 'none';
-            localStorage.setItem('nafsy_api_key', key);
-            // Move to PIN setup or login
-            document.getElementById('apiKeyPage').classList.remove('active');
-            if (!localStorage.getItem('nafsy_pin')) {
-                document.getElementById('pinSetupPage').classList.add('active');
-            } else {
-                document.getElementById('loginPage').classList.add('active');
-            }
-        }
-
         function setupPinKey(key) {
             if (key === 'del') {
                 setupPinValue = setupPinValue.slice(0, -1);
@@ -4660,6 +4621,12 @@ ADHD والعواطف:
         }
 
         async function processSendMessage(displayMessage, imageDataToSend, isCrisis) {
+            // Check API key first — guide user to Settings if missing
+            if (!getApiKey()) {
+                addMessageToUI('⚙️ لم يتم تعيين مفتاح API بعد. افتح الإعدادات (القائمة ← الإعدادات) وأدخل مفتاح Gemini API الخاص بك.', 'ai');
+                return;
+            }
+
             // Add user message to UI (if not already added)
             if (!isCrisis) {
                 addMessageToUI(displayMessage, 'user', imageDataToSend);
@@ -5178,18 +5145,14 @@ ADHD والعواطف:
             // Apply saved theme
             applyTheme();
             
-            const hasApiKey = !!localStorage.getItem('nafsy_api_key');
             const hasPin = !!localStorage.getItem('nafsy_pin');
             const isLoggedIn = localStorage.getItem('nafsy_logged_in') === 'true';
             
             // Hide login page initially, determine correct start page
             document.getElementById('loginPage').classList.remove('active');
             
-            if (!hasApiKey) {
-                // New user - show API key onboarding
-                document.getElementById('apiKeyPage').classList.add('active');
-            } else if (!hasPin) {
-                // Has API key but no PIN - show PIN setup
+            if (!hasPin) {
+                // New user - show PIN setup
                 document.getElementById('pinSetupPage').classList.add('active');
             } else if (isLoggedIn) {
                 // Already logged in
@@ -5199,7 +5162,7 @@ ADHD والعواطف:
                 renderProfile();
                 checkMoodCheckin();
             } else {
-                // Has key and PIN, show login
+                // Has PIN, show login
                 document.getElementById('loginPage').classList.add('active');
             }
         };
