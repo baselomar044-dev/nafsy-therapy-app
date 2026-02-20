@@ -1069,9 +1069,768 @@
             font-size: 60px;
             margin-bottom: 20px;
         }
+
+        /* ===== ONBOARDING / SETUP PAGES ===== */
+        .onboarding-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .onboarding-logo {
+            font-size: 56px;
+            font-weight: 800;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        .onboarding-tagline {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        .onboarding-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .onboarding-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 320px;
+        }
+        .onboarding-input {
+            width: 100%;
+            max-width: 320px;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--bg-tertiary);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 14px;
+            margin-bottom: 16px;
+            outline: none;
+            direction: ltr;
+            text-align: left;
+            transition: border-color 0.3s;
+        }
+        .onboarding-input:focus { border-color: var(--accent-blue); }
+        .onboarding-btn {
+            width: 100%;
+            max-width: 320px;
+            padding: 16px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+        .onboarding-btn:hover { background: var(--accent-blue-dark); }
+        .onboarding-error {
+            color: #ff5555;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+        .setup-pin-dots {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .pin-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            transition: background 0.2s;
+        }
+        .pin-dot.filled { background: var(--accent-blue); }
+        .pin-keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 280px;
+            width: 100%;
+        }
+        .pin-key {
+            padding: 18px;
+            background: var(--bg-secondary);
+            border: none;
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 22px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pin-key:active, .pin-key:hover { background: var(--accent-blue); color: white; }
+        .pin-key.del { color: #ff5555; }
+        .login-logo {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--accent-blue);
+            margin-bottom: 6px;
+        }
+        .login-tagline {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* ===== LIGHT THEME ===== */
+        [data-theme="light"] {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e4e7eb;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --text-muted: #888888;
+        }
+        [data-theme="light"] .message-ai {
+            background: #e8ecf0;
+            color: #1a1a1a;
+        }
+        [data-theme="light"] .message-time { color: rgba(0,0,0,0.4); }
+        [data-theme="light"] .message-ai .message-time { color: #888; }
+
+        /* ===== PAGE TRANSITIONS ===== */
+        .page.active {
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== MOOD TRACKER ===== */
+        .mood-checkin-card {
+            background: linear-gradient(135deg, #1a2a4a 0%, #1a3a5a 100%);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(74, 158, 255, 0.3);
+        }
+        [data-theme="light"] .mood-checkin-card {
+            background: linear-gradient(135deg, #e8f0fe 0%, #ddeeff 100%);
+            border: 1px solid rgba(74, 158, 255, 0.4);
+        }
+        .mood-checkin-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+        .mood-options {
+            display: flex;
+            justify-content: space-around;
+        }
+        .mood-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+        .mood-option:hover, .mood-option:active {
+            background: rgba(74, 158, 255, 0.15);
+            transform: scale(1.1);
+        }
+        .mood-emoji { font-size: 28px; }
+        .mood-label { font-size: 11px; color: var(--text-secondary); }
+        .mood-trend-section { margin-bottom: 20px; }
+        .mood-trend-dots {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .mood-trend-dot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .mood-trend-dot .dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .mood-trend-dot .dot-date { font-size: 10px; color: var(--text-muted); }
+
+        /* ===== MESSAGE ANIMATIONS ===== */
+        .message {
+            animation: msgSlideUp 0.25s ease;
+        }
+        @keyframes msgSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .send-btn.pulse {
+            animation: sendPulse 0.3s ease;
+        }
+        @keyframes sendPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+            100% { transform: scale(1); }
+        }
+
+        /* ===== SCROLL TO BOTTOM BUTTON ===== */
+        .scroll-bottom-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(74, 158, 255, 0.5);
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        .scroll-bottom-btn.visible {
+            display: flex;
+        }
+        .messages-area-wrapper {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== BREATHING PAGE ===== */
+        .breathing-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .breathing-exercises-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .breathing-exercise-btn {
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--bg-tertiary);
+            border-radius: 14px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: right;
+            transition: all 0.3s;
+        }
+        .breathing-exercise-btn:hover,
+        .breathing-exercise-btn.active-exercise {
+            border-color: var(--accent-blue);
+            background: rgba(74, 158, 255, 0.1);
+        }
+        .breathing-exercise-btn .ex-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-top: 4px;
+        }
+        .breathing-circle-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .breathing-svg {
+            width: 220px;
+            height: 220px;
+        }
+        .breathing-circle-outer {
+            fill: none;
+            stroke: rgba(74, 158, 255, 0.15);
+            stroke-width: 8;
+        }
+        .breathing-circle-inner {
+            fill: rgba(74, 158, 255, 0.2);
+            transition: r 0.1s linear;
+        }
+        .breathing-circle-ring {
+            fill: none;
+            stroke: var(--accent-blue);
+            stroke-width: 5;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.1s linear;
+        }
+        .breathing-phase-label {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-top: 10px;
+            min-height: 32px;
+        }
+        .breathing-timer {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-top: 6px;
+        }
+        .breathing-cycles {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .breathing-start-btn {
+            padding: 16px 50px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.3s;
+        }
+        .breathing-start-btn:hover { background: var(--accent-blue-dark); }
+        .breathing-start-btn.stop-btn { background: #ff5555; }
+
+        /* ===== JOURNAL PAGE ===== */
+        .journal-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .journal-new-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .journal-new-btn:hover { background: var(--accent-blue-dark); }
+        .journal-entry-card {
+            background: var(--bg-secondary);
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-right: 4px solid var(--accent-blue);
+        }
+        .journal-entry-card:hover { background: var(--bg-tertiary); }
+        .journal-entry-date {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .journal-entry-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .journal-entry-preview {
+            font-size: 13px;
+            color: var(--text-secondary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .journal-entry-mood { font-size: 18px; float: left; }
+
+        /* Journal editor */
+        .journal-editor {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-primary);
+            z-index: 102;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .journal-editor.active { display: flex; }
+        .journal-editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .journal-editor-title { font-size: 18px; font-weight: 700; }
+        .journal-input-title {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            outline: none;
+        }
+        .journal-mood-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .journal-mood-btn {
+            font-size: 24px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--bg-tertiary);
+            border-radius: 10px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .journal-mood-btn.selected {
+            border-color: var(--accent-blue);
+            background: rgba(74,158,255,0.15);
+        }
+        .journal-textarea {
+            flex: 1;
+            width: 100%;
+            padding: 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            margin-bottom: 14px;
+        }
+        .journal-editor-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .journal-save-btn {
+            flex: 1;
+            padding: 14px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .journal-ai-btn {
+            flex: 1;
+            padding: 14px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .journal-viewer {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-primary);
+            z-index: 102;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .journal-viewer.active { display: flex; }
+        .journal-view-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .journal-view-date { font-size: 13px; color: var(--text-muted); }
+        .journal-view-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+        .journal-view-mood { font-size: 28px; }
+        .journal-view-body {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            white-space: pre-wrap;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        /* ===== CRISIS MODAL ===== */
+        .crisis-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 300;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .crisis-modal.active { display: flex; }
+        .crisis-content {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 28px 24px;
+            max-width: 360px;
+            width: 100%;
+            text-align: center;
+        }
+        .crisis-heart { font-size: 48px; margin-bottom: 16px; }
+        .crisis-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .crisis-message {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .crisis-contacts {
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        .crisis-contact-item {
+            font-size: 14px;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .crisis-contact-item:last-child { border-bottom: none; }
+        .crisis-actions { display: flex; flex-direction: column; gap: 10px; }
+        .crisis-btn-primary {
+            padding: 14px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .crisis-btn-secondary {
+            padding: 14px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        /* ===== SETTINGS PANEL ===== */
+        .settings-panel {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-primary);
+            z-index: 102;
+            overflow-y: auto;
+        }
+        .settings-panel.active { display: block; }
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--bg-tertiary);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .settings-title { font-size: 20px; font-weight: 700; }
+        .settings-body { padding: 20px; }
+        .settings-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .settings-section-title:first-child { margin-top: 0; }
+        .settings-item {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 15px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .settings-item:hover { background: var(--bg-tertiary); }
+        .settings-item-left { display: flex; align-items: center; gap: 12px; }
+        .settings-item-icon { font-size: 20px; }
+        .settings-item-text { font-size: 15px; }
+        .settings-item-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+        .settings-item-right { color: var(--text-muted); font-size: 14px; }
+        .settings-input-group {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 8px;
+        }
+        .settings-input-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .settings-input {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            direction: ltr;
+            margin-bottom: 10px;
+        }
+        .settings-save-btn {
+            padding: 10px 24px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toggle-switch {
+            width: 48px;
+            height: 26px;
+            background: var(--bg-tertiary);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: none;
+        }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            right: 3px;
+            transition: transform 0.3s;
+        }
+        .toggle-switch.on { background: var(--accent-blue); }
+        .toggle-switch.on::after { transform: translateX(-22px); }
+
     </style>
 </head>
 <body>
+    <!-- API KEY SETUP PAGE -->
+    <div class="page" id="apiKeyPage">
+        <div class="onboarding-container">
+            <div class="avatar">
+                <div class="avatar-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+            </div>
+            <div class="onboarding-logo">نفسي</div>
+            <div class="onboarding-tagline">رفيقك النفسي الشخصي</div>
+            <h2 class="onboarding-title">مرحباً بك 👋</h2>
+            <p class="onboarding-desc">للبدء، أدخل مفتاح Gemini API الخاص بك. يمكنك الحصول عليه مجاناً من <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--accent-blue);">Google AI Studio</a>.</p>
+            <input type="password" class="onboarding-input" id="apiKeyInput" placeholder="AIzaSy..." autocomplete="off" dir="ltr">
+            <button class="onboarding-btn" onclick="saveApiKey()">التالي ←</button>
+            <p class="onboarding-error" id="apiKeyError">الرجاء إدخال مفتاح API صحيح (يبدأ بـ AIza)</p>
+            <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">
+                المفتاح يُحفظ محلياً في جهازك فقط ولا يُرسل لأي مكان آخر.
+            </p>
+        </div>
+    </div>
+
+    <!-- PIN SETUP PAGE -->
+    <div class="page" id="pinSetupPage">
+        <div class="onboarding-container">
+            <div class="onboarding-logo">نفسي</div>
+            <div class="onboarding-tagline">رفيقك النفسي الشخصي</div>
+            <h2 class="onboarding-title">أنشئ رمز الدخول 🔐</h2>
+            <p class="onboarding-desc">اختر رمزاً من 4 أرقام لحماية جلساتك الخاصة.</p>
+            <div class="setup-pin-dots">
+                <div class="pin-dot" id="setupDot0"></div>
+                <div class="pin-dot" id="setupDot1"></div>
+                <div class="pin-dot" id="setupDot2"></div>
+                <div class="pin-dot" id="setupDot3"></div>
+            </div>
+            <div class="pin-keypad" id="setupKeypad">
+                <button class="pin-key" onclick="setupPinKey('1')">1</button>
+                <button class="pin-key" onclick="setupPinKey('2')">2</button>
+                <button class="pin-key" onclick="setupPinKey('3')">3</button>
+                <button class="pin-key" onclick="setupPinKey('4')">4</button>
+                <button class="pin-key" onclick="setupPinKey('5')">5</button>
+                <button class="pin-key" onclick="setupPinKey('6')">6</button>
+                <button class="pin-key" onclick="setupPinKey('7')">7</button>
+                <button class="pin-key" onclick="setupPinKey('8')">8</button>
+                <button class="pin-key" onclick="setupPinKey('9')">9</button>
+                <button class="pin-key" style="visibility:hidden"></button>
+                <button class="pin-key" onclick="setupPinKey('0')">0</button>
+                <button class="pin-key del" onclick="setupPinKey('del')">⌫</button>
+            </div>
+            <p class="onboarding-error" id="pinSetupError">يجب أن يكون الرمز 4 أرقام</p>
+        </div>
+    </div>
+
     <!-- LOGIN PAGE -->
     <div class="page active" id="loginPage">
         <div class="login-container">
@@ -1081,11 +1840,29 @@
                     <div class="eye"></div>
                 </div>
             </div>
-            <form class="login-form" onsubmit="return handleLogin(event)">
-                <input type="password" class="password-input" id="passwordInput" placeholder="••••" maxlength="4" autocomplete="off" inputmode="numeric">
-                <button type="submit" class="login-btn">دخول</button>
-                <p class="login-error" id="loginError">كلمة المرور غير صحيحة</p>
-            </form>
+            <div class="login-logo">نفسي</div>
+            <div class="login-tagline">رفيقك النفسي الشخصي</div>
+            <div class="setup-pin-dots" style="margin-bottom:20px;">
+                <div class="pin-dot" id="loginDot0"></div>
+                <div class="pin-dot" id="loginDot1"></div>
+                <div class="pin-dot" id="loginDot2"></div>
+                <div class="pin-dot" id="loginDot3"></div>
+            </div>
+            <div class="pin-keypad">
+                <button class="pin-key" onclick="loginPinKey('1')">1</button>
+                <button class="pin-key" onclick="loginPinKey('2')">2</button>
+                <button class="pin-key" onclick="loginPinKey('3')">3</button>
+                <button class="pin-key" onclick="loginPinKey('4')">4</button>
+                <button class="pin-key" onclick="loginPinKey('5')">5</button>
+                <button class="pin-key" onclick="loginPinKey('6')">6</button>
+                <button class="pin-key" onclick="loginPinKey('7')">7</button>
+                <button class="pin-key" onclick="loginPinKey('8')">8</button>
+                <button class="pin-key" onclick="loginPinKey('9')">9</button>
+                <button class="pin-key" style="visibility:hidden"></button>
+                <button class="pin-key" onclick="loginPinKey('0')">0</button>
+                <button class="pin-key del" onclick="loginPinKey('del')">⌫</button>
+            </div>
+            <p class="login-error" id="loginError" style="margin-top:16px;">رمز الدخول غير صحيح</p>
         </div>
     </div>
 
@@ -1108,7 +1885,8 @@
             </div>
         </div>
 
-        <div class="messages-area" id="messagesArea">
+        <div class="messages-area-wrapper">
+        <div class="messages-area" id="messagesArea" onscroll="handleChatScroll()">
             <div class="welcome-message" id="welcomeMessage">
                 <div class="welcome-avatar">
                     <div class="avatar-eyes">
@@ -1126,6 +1904,8 @@
                 </div>
             </div>
         </div>
+        <button class="scroll-bottom-btn" id="scrollBottomBtn" onclick="scrollToBottom()">↓</button>
+        </div><!-- end messages-area-wrapper -->
 
         <div class="input-area">
             <div class="file-preview" id="filePreview">
@@ -1146,15 +1926,23 @@
         </div>
 
         <div class="bottom-nav">
-            <button class="nav-item active" onclick="showPage('chat')">
+            <button class="nav-item active" onclick="showPage('chat')" data-page="chat">
                 <span class="nav-icon">💬</span>
                 <span class="nav-label">المحادثة</span>
             </button>
-            <button class="nav-item" onclick="showPage('resources')">
+            <button class="nav-item" onclick="showPage('resources')" data-page="resources">
                 <span class="nav-icon">📚</span>
                 <span class="nav-label">الموارد</span>
             </button>
-            <button class="nav-item" onclick="showPage('profile')">
+            <button class="nav-item" onclick="showPage('breathing')" data-page="breathing">
+                <span class="nav-icon">🫁</span>
+                <span class="nav-label">تنفس</span>
+            </button>
+            <button class="nav-item" onclick="showPage('journal')" data-page="journal">
+                <span class="nav-icon">📓</span>
+                <span class="nav-label">يومياتي</span>
+            </button>
+            <button class="nav-item" onclick="showPage('profile')" data-page="profile">
                 <span class="nav-icon">👤</span>
                 <span class="nav-label">ملفي</span>
             </button>
@@ -1184,20 +1972,32 @@
                 <button class="resources-tab" onclick="filterResources('addiction')">الإدمان</button>
                 <button class="resources-tab" onclick="filterResources('sex')">العلاج الجنسي</button>
                 <button class="resources-tab" onclick="filterResources('adhd')">ADHD</button>
+                <button class="resources-tab" onclick="filterResources('anxiety')">القلق</button>
+                <button class="resources-tab" onclick="filterResources('depression')">الاكتئاب</button>
+                <button class="resources-tab" onclick="filterResources('grief')">الحزن والخسارة</button>
+                <button class="resources-tab" onclick="filterResources('selfesteem')">تقدير الذات</button>
             </div>
             <div id="resourcesList"></div>
         </div>
 
         <div class="bottom-nav">
-            <button class="nav-item" onclick="showPage('chat')">
+            <button class="nav-item" onclick="showPage('chat')" data-page="chat">
                 <span class="nav-icon">💬</span>
                 <span class="nav-label">المحادثة</span>
             </button>
-            <button class="nav-item active" onclick="showPage('resources')">
+            <button class="nav-item active" onclick="showPage('resources')" data-page="resources">
                 <span class="nav-icon">📚</span>
                 <span class="nav-label">الموارد</span>
             </button>
-            <button class="nav-item" onclick="showPage('profile')">
+            <button class="nav-item" onclick="showPage('breathing')" data-page="breathing">
+                <span class="nav-icon">🫁</span>
+                <span class="nav-label">تنفس</span>
+            </button>
+            <button class="nav-item" onclick="showPage('journal')" data-page="journal">
+                <span class="nav-icon">📓</span>
+                <span class="nav-label">يومياتي</span>
+            </button>
+            <button class="nav-item" onclick="showPage('profile')" data-page="profile">
                 <span class="nav-icon">👤</span>
                 <span class="nav-label">ملفي</span>
             </button>
@@ -1224,15 +2024,23 @@
         </div>
 
         <div class="bottom-nav">
-            <button class="nav-item" onclick="showPage('chat')">
+            <button class="nav-item" onclick="showPage('chat')" data-page="chat">
                 <span class="nav-icon">💬</span>
                 <span class="nav-label">المحادثة</span>
             </button>
-            <button class="nav-item" onclick="showPage('resources')">
+            <button class="nav-item" onclick="showPage('resources')" data-page="resources">
                 <span class="nav-icon">📚</span>
                 <span class="nav-label">الموارد</span>
             </button>
-            <button class="nav-item active" onclick="showPage('profile')">
+            <button class="nav-item" onclick="showPage('breathing')" data-page="breathing">
+                <span class="nav-icon">🫁</span>
+                <span class="nav-label">تنفس</span>
+            </button>
+            <button class="nav-item" onclick="showPage('journal')" data-page="journal">
+                <span class="nav-icon">📓</span>
+                <span class="nav-label">يومياتي</span>
+            </button>
+            <button class="nav-item active" onclick="showPage('profile')" data-page="profile">
                 <span class="nav-icon">👤</span>
                 <span class="nav-label">ملفي</span>
             </button>
@@ -1265,6 +2073,10 @@
         <div class="menu-item" onclick="clearAllData()">
             <span class="menu-item-icon">🗑️</span>
             <span>مسح كل البيانات</span>
+        </div>
+        <div class="menu-item" onclick="openSettings()">
+            <span class="menu-item-icon">⚙️</span>
+            <span>الإعدادات</span>
         </div>
         <div class="menu-item" onclick="logout()">
             <span class="menu-item-icon">🚪</span>
@@ -1299,9 +2111,9 @@
 
     <script>
         // ===== CONFIGURATION =====
-        const API_KEY = 'AIzaSyBvLpjQUeh9MX330vdIomvwoC6iiK47_fw';
-        const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
-        const PASSWORD = '1235';
+        const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent';
+        function getApiKey() { return localStorage.getItem('nafsy_api_key') || ''; }
+        function getPin() { return localStorage.getItem('nafsy_pin') || '1235'; } // fallback '1235' for users who had the app before PIN setup was added
 
         // ===== SYSTEM PROMPT =====
         const SYSTEM_PROMPT = `أنت "نفسي" - معالج نفسي شخصي متخصص. أنت لست مجرد برنامج، أنت صديق حقيقي وداعم نفسي كامل.
@@ -1356,7 +2168,15 @@
 - لا تتردد في مناقشة أي شيء بعمق
 - كن الدعم الذي يحتاجه المستخدم
 - ساعده على فهم نفسه بعمق
-- قدم رؤى عميقة وليس نصائح سطحية`;
+- قدم رؤى عميقة وليس نصائح سطحية
+
+## تنسيق الردود
+- استخدم • للقوائم والنقاط بشكل واضح ومنسق
+- استخدم **النص** للتأكيد على النقاط المهمة
+- قدم تمارين عملية (تنفس، تأريض، كتابة يومية) عند الحاجة
+- أشر بشكل طبيعي وعفوي للمواضيع السابقة من المحادثة
+- أنهِ الردود الطويلة بسؤال متابعة واحد عميق وذو معنى
+- عند اكتشاف مشاعر صعبة، قدم تمريناً تنفسياً أو تمرين تأريض فوري`;
 
         // ===== LEARNING RESOURCES DATABASE =====
         const RESOURCES = [
@@ -1719,6 +2539,327 @@ ADHD والعواطف:
                 content: '',
                 duration: '20 دقيقة',
                 link: 'https://www.youtube.com/results?search_query=how+adhd+brain+works+arabic'
+            },
+
+            // ANXIETY
+            {
+                id: 15,
+                category: 'anxiety',
+                type: 'مقال',
+                title: 'القلق: رسالة من جسدك',
+                description: 'فهم القلق كاستجابة طبيعية وكيف تتعلم الاستماع إليه بدلاً من محاربته.',
+                content: `القلق ليس عدوك، بل هو محاولة جسدك لحمايتك.
+
+ما هو القلق؟
+القلق هو استجابة "قتال أو هروب" الطبيعية التي طورها الإنسان للبقاء. المشكلة أن أدمغتنا الحديثة تطلق هذه الاستجابة على التهديدات النفسية تماماً كما تفعل مع التهديدات الجسدية.
+
+أعراض القلق:
+• تسارع ضربات القلب
+• ضيق التنفس
+• التعرق
+• الأفكار المتسارعة
+• توتر العضلات
+• اضطرابات النوم
+• الإحساس بالكارثة الوشيكة
+
+أنواع القلق:
+1. قلق التوقع: القلق من المستقبل
+2. القلق الاجتماعي: الخوف من حكم الآخرين
+3. قلق الأداء: الخوف من الفشل
+4. القلق العام: القلق من كل شيء
+
+تقنيات فورية لتهدئة القلق:
+• تنفس 4-7-8 (شهيق 4، حبس 7، زفير 8)
+• تقنية 5-4-3-2-1 (5 أشياء تراها، 4 تلمسها...)
+• الحركة الجسدية
+• الكتابة عن مصدر القلق`,
+                duration: '10 دقائق قراءة',
+                link: ''
+            },
+            {
+                id: 16,
+                category: 'anxiety',
+                type: 'مقال',
+                title: 'تمرين 5-4-3-2-1: التأريض في اللحظة الحاضرة',
+                description: 'تقنية فعالة للخروج من دوامة القلق والعودة للحظة الحاضرة.',
+                content: `تمرين التأريض 5-4-3-2-1 هو من أقوى التقنيات الفورية لوقف نوبات القلق.
+
+كيف تطبقه:
+خذ نفساً عميقاً أولاً، ثم:
+
+5 أشياء تراها:
+انظر حولك وسمِّ 5 أشياء تراها الآن. كن محدداً: "أرى كرسياً بنياً، نافذة بيضاء..."
+
+4 أشياء تلمسها:
+المس 4 أشياء حولك والاحظ ملمسها: "أشعر ببرودة الطاولة، نعومة القميص..."
+
+3 أشياء تسمعها:
+أصغِ للأصوات من حولك: "أسمع صوت مروحة، صوت سيارات بعيدة..."
+
+2 رائحتان تشمهما:
+انتبه للروائح: "أشم قهوة، رائحة الهواء..."
+
+1 طعم تتذوقه:
+ما الطعم الموجود في فمك الآن?
+
+لماذا يعمل هذا؟
+يجبر العقل على التركيز على الواقع الحسي بدلاً من الأفكار المستقبلية المثيرة للقلق.`,
+                duration: '5 دقائق قراءة',
+                link: ''
+            },
+            {
+                id: 17,
+                category: 'anxiety',
+                type: 'مقال',
+                title: 'القلق الاجتماعي: الخوف من عيون الآخرين',
+                description: 'فهم القلق الاجتماعي وخطوات عملية للتغلب عليه.',
+                content: `القلق الاجتماعي هو الخوف المستمر من التقييم السلبي من قِبل الآخرين.
+
+الأفكار الشائعة في القلق الاجتماعي:
+• "سيحكمون عليّ"
+• "سأبدو غبياً أو ضعيفاً"
+• "الجميع يلاحظني"
+• "سأقول شيئاً غبياً"
+
+الحقيقة المثيرة للاهتمام:
+الناس أقل انتباهاً لك مما تتخيل. يسمى هذا "تأثير الأضواء" - نحن نعتقد أن الجميع يلاحظنا بينما هم مشغولون بقلقهم الخاص.
+
+خطوات للتغلب على القلق الاجتماعي:
+1. اعرف الأفكار التلقائية السلبية
+2. تحدَّ هذه الأفكار بالأدلة
+3. ابدأ بتعرضات صغيرة
+4. ركز على المحادثة لا على نفسك
+5. تقبّل عدم الكمال`,
+                duration: '8 دقائق قراءة',
+                link: ''
+            },
+
+            // DEPRESSION
+            {
+                id: 18,
+                category: 'depression',
+                type: 'مقال',
+                title: 'الاكتئاب: أكثر من مجرد حزن',
+                description: 'فهم الاكتئاب كمرض حقيقي وكيف يؤثر على العقل والجسد.',
+                content: `الاكتئاب ليس ضعفاً، ولا "دللة"، ولا يمكن التغلب عليه بـ"التفاؤل فقط". هو حالة طبية حقيقية.
+
+أعراض الاكتئاب:
+• الشعور بالحزن أو الفراغ لأسابيع
+• فقدان الاهتمام بأشياء كانت ممتعة
+• تغييرات في النوم (أرق أو نوم زائد)
+• تغييرات في الشهية
+• صعوبة التركيز
+• إرهاق مستمر
+• مشاعر عديمة القيمة أو الذنب
+• أفكار عن الموت أو الانتحار
+
+لماذا يحدث الاكتئاب؟
+• عوامل بيولوجية (اختلال كيميائي)
+• صدمات وتجارب مؤلمة
+• أنماط تفكير سلبية مزمنة
+• عزلة اجتماعية
+• ظروف حياتية صعبة
+• مزيج من كل ما سبق
+
+ما الذي يساعد؟
+• العلاج النفسي (CBT, DBT)
+• النشاط البدني (حتى المشي اليومي)
+• الاتصال الاجتماعي
+• تنظيم النوم
+• في بعض الحالات: الأدوية`,
+                duration: '12 دقيقة قراءة',
+                link: ''
+            },
+            {
+                id: 19,
+                category: 'depression',
+                type: 'مقال',
+                title: 'الأفكار السلبية التلقائية: كيف يكذب عليك عقلك المكتئب',
+                description: 'تعرف على أكثر 10 أنماط تفكير سلبية شيوعاً في الاكتئاب وكيف تتحداها.',
+                content: `الاكتئاب يشوه طريقة تفكيرنا. هذه الأفكار تبدو حقيقية جداً لكنها ليست حقيقة.
+
+أكثر التشوهات المعرفية شيوعاً:
+
+1. التفكير الثنائي (أبيض أو أسود):
+"إما أن أكون ناجحاً تماماً أو فاشلاً تماماً"
+
+2. التعميم المفرط:
+"هذا دائماً يحدث لي" بعد حادثة واحدة
+
+3. قراءة الأفكار:
+"أعرف أنه يفكر بشيء سلبي عني"
+
+4. التنبؤ بالمستقبل:
+"هذا لن ينجح أبداً"
+
+5. التهويل / التقليل:
+تضخيم الأخطاء وتصغير الإنجازات
+
+6. الاستنتاج العاطفي:
+"أشعر أنني فاشل، إذن أنا فاشل"
+
+7. العبارات الإلزامية:
+"يجب أن أكون..." "لا ينبغي أن..."
+
+كيف تتحدى هذه الأفكار؟
+• توقف واسأل: "ما الدليل على هذه الفكرة؟"
+• هل أبالغ في التفسير؟
+• ماذا سأقول لصديق يفكر هكذا؟`,
+                duration: '10 دقائق قراءة',
+                link: ''
+            },
+            {
+                id: 20,
+                category: 'depression',
+                type: 'مقال',
+                title: 'الخروج من الاكتئاب: خطوات صغيرة تصنع فرقاً كبيراً',
+                description: 'استراتيجيات علمية لإدارة الاكتئاب في الحياة اليومية.',
+                content: `الاكتئاب يجعل كل شيء يبدو ثقيلاً. لكن هناك خطوات صغيرة تحدث فرقاً حقيقياً.
+
+التنشيط السلوكي:
+الاكتئاب يجعلنا نتوقف عن الأنشطة، وهذا يزيد الاكتئاب. الحل: فعل الأنشطة حتى لو لم نشعر بالرغبة.
+
+ابدأ صغيراً جداً:
+• 5 دقائق مشي يومياً
+• دش واحد اليوم
+• رسالة واحدة لشخص تحبه
+• طبق طعام واحد
+
+قائمة الأنشطة المفيدة:
+• التمرين (الأقوى علمياً ضد الاكتئاب)
+• النوم المنتظم (نفس وقت النوم والاستيقاظ)
+• الخروج للشمس 20 دقيقة
+• الاتصال بشخص تثق به
+• كتابة 3 أشياء إيجابية يومياً
+• التطوع أو مساعدة الآخرين
+
+تذكر: الدافعية تأتي بعد الفعل، ليس قبله.`,
+                duration: '8 دقائق قراءة',
+                link: ''
+            },
+
+            // GRIEF
+            {
+                id: 21,
+                category: 'grief',
+                type: 'مقال',
+                title: 'الحزن والخسارة: رحلة الشفاء',
+                description: 'فهم مراحل الحزن وكيف تعيش تجربة الفقد بشكل صحي.',
+                content: `الحزن هو الثمن الذي ندفعه مقابل الحب. لا يوجد طريق صحيح أو خاطئ للحزن.
+
+مراحل الحزن (كوبلر روس):
+1. الإنكار: "هذا لا يمكن أن يكون حقيقياً"
+2. الغضب: "لماذا أنا؟ لماذا هذا؟"
+3. المساومة: "لو فعلت شيئاً مختلفاً..."
+4. الاكتئاب: الشعور بالثقل والفراغ
+5. القبول: إيجاد طريقة للمضي قدماً
+
+هام: هذه المراحل ليست خطية. يمكن أن تتقدم وتتراجع وتتكرر.
+
+أنواع الحزن:
+• فقدان شخص عزيز
+• نهاية علاقة
+• فقدان وظيفة أو هوية
+• فقدان الصحة
+• فقدان حلم أو مستقبل مأمول
+
+ما يساعد في الحزن:
+• السماح لنفسك بالشعور بالحزن
+• التحدث عن الشخص أو الشيء الضائع
+• الاحتفاظ بذكريات جميلة
+• إيجاد معنى أو موروث من الخسارة
+• الصبر على نفسك - الحزن يأخذ وقتاً`,
+                duration: '10 دقائق قراءة',
+                link: ''
+            },
+            {
+                id: 22,
+                category: 'grief',
+                type: 'مقال',
+                title: 'الحزن المعقد: عندما لا يختفي الألم',
+                description: 'متى يصبح الحزن "معقداً" وكيف تطلب المساعدة المناسبة.',
+                content: `الحزن المعقد (Complicated Grief) يحدث عندما يستمر الحزن الحاد لفترة طويلة ويعيق الحياة اليومية.
+
+علامات الحزن المعقد:
+• عدم القدرة على قبول الخسارة بعد أشهر طويلة
+• صعوبة التفكير في شيء آخر
+• الشعور بأن الحياة بلا معنى بدون الشخص/الشيء الضائع
+• تجنب كل ما يذكر بالخسارة أو العكس
+• الشعور بالذنب الشديد حول الخسارة
+• صعوبة تقبل دعم الآخرين
+
+ما الفرق بين الحزن الطبيعي والمعقد؟
+في الحزن الطبيعي: تتراجع الشدة تدريجياً وتستطيع الانخراط في الحياة.
+في الحزن المعقد: تبقى الشدة عالية وتتعطل وظائفك الحياتية.
+
+الخطوات:
+1. اعترف بأن حزنك يستحق الاهتمام
+2. تحدث عن خسارتك مع شخص تثق به
+3. فكر في طلب دعم متخصص
+4. أعطِ نفسك إذناً بالاستمرار في الحياة`,
+                duration: '9 دقائق قراءة',
+                link: ''
+            },
+
+            // SELF ESTEEM
+            {
+                id: 23,
+                category: 'selfesteem',
+                type: 'مقال',
+                title: 'تقدير الذات: أساس صحتك النفسية',
+                description: 'ما هو تقدير الذات الحقيقي وكيف تبنيه على أرض صلبة.',
+                content: `تقدير الذات الصحي ليس الغرور ولا الكمال، بل هو الإيمان الهادئ بقيمتك كإنسان.
+
+تقدير الذات المنخفض يتجلى في:
+• الحديث الداخلي السلبي المستمر
+• صعوبة قبول المجاملات
+• المقارنة المستمرة بالآخرين
+• الخوف الشديد من الرفض
+• السعي المفرط لإرضاء الآخرين
+• الشعور بأنك "لا تستحق" الأشياء الجيدة
+
+جذور تقدير الذات المنخفض:
+• النقد المستمر في الطفولة
+• المقارنة بالآخرين من قِبل الوالدين
+• الإساءة أو الإهمال
+• الفشل المتكرر بدون دعم
+• الرسائل السلبية من المجتمع
+
+بناء تقدير الذات الحقيقي:
+• الأفعال قبل المشاعر: افعل ما يجعلك تشعر بالكفاءة
+• ضع حدوداً صحية
+• ابتعد عن المقارنة
+• تعلم من الأخطاء بدلاً من الانتقاد الذاتي
+• احتفل بالإنجازات الصغيرة
+• عامل نفسك كما تعامل صديقاً عزيزاً`,
+                duration: '12 دقيقة قراءة',
+                link: ''
+            },
+            {
+                id: 24,
+                category: 'selfesteem',
+                type: 'مقال',
+                title: 'المقارنة مع الآخرين: لعبة لا تنتهي',
+                description: 'لماذا المقارنة تسرق سعادتك وكيف توقف هذه العادة المدمرة.',
+                content: `"المقارنة هي سارقة السعادة" - تيودور روزفلت
+
+لماذا نقارن؟
+الدماغ البشري مصمم للمقارنة الاجتماعية كآلية للبقاء. لكن وسائل التواصل الاجتماعي ضخّمت هذه الآلية لتصبح مدمرة.
+
+المشكلة مع المقارنة:
+• نقارن "مشاهدنا الداخلية الكاملة" بـ"اللقطات الأفضل" لدى الآخرين
+• السوشيال ميديا تعرض فقط الجوانب المختارة
+• لا يوجد شخصان في نفس المسار
+• المقارنة مع شخص "أفضل" تُحبط
+• المقارنة مع شخص "أسوأ" تُشعرك بالذنب
+
+بدائل صحية:
+• قارن نفسك بنسختك السابقة فقط
+• احتفل بإنجازات الآخرين دون تهديد لهويتك
+• ذكّر نفسك بما تملكه
+• حدّد ما تريده أنت حقاً، بعيداً عن الآخرين`,
+                duration: '8 دقائق قراءة',
+                link: ''
             }
         ];
 
@@ -2686,7 +3827,7 @@ ADHD والعواطف:
                 ]
             };
 
-            const response = await fetch(`${API_URL}?key=${API_KEY}`, {
+            const response = await fetch(`${API_URL}?key=${getApiKey()}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(requestBody)
@@ -2804,35 +3945,7 @@ ADHD والعواطف:
         }
 
         // ===== CHAT FUNCTIONS =====
-        function addMessageToUI(content, type, imageData = null, scroll = true) {
-            const area = document.getElementById('messagesArea');
-            const typing = document.getElementById('typingIndicator');
-            
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `message message-${type}`;
-            
-            if (imageData && type === 'user') {
-                const img = document.createElement('img');
-                img.src = `data:${imageData.mimeType};base64,${imageData.base64}`;
-                img.className = 'message-image';
-                msgDiv.appendChild(img);
-            }
-            
-            const textDiv = document.createElement('div');
-            textDiv.textContent = content;
-            msgDiv.appendChild(textDiv);
-            
-            const timeDiv = document.createElement('div');
-            timeDiv.className = 'message-time';
-            timeDiv.textContent = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
-            msgDiv.appendChild(timeDiv);
-            
-            area.insertBefore(msgDiv, typing);
-            
-            if (scroll) {
-                area.scrollTop = area.scrollHeight;
-            }
-        }
+        // addMessageToUI defined below
 
         function loadCurrentChat() {
             const messages = memory.currentChat;
@@ -2855,46 +3968,7 @@ ADHD والعواطف:
             area.scrollTop = area.scrollHeight;
         }
 
-        async function sendMessage() {
-            const input = document.getElementById('messageInput');
-            const message = input.value.trim();
-            
-            if (!message && !selectedFile) return;
-            
-            let displayMessage = message;
-            if (selectedFile && !selectedImageData) {
-                displayMessage = `[ملف: ${selectedFile.name}]\n${message}`;
-            }
-            
-            const imageDataToSend = selectedImageData;
-            
-            input.value = '';
-            autoResize(input);
-            removeFile();
-            
-            // Add user message
-            addMessageToUI(displayMessage, 'user', imageDataToSend);
-            memory.addMessage('user', displayMessage, imageDataToSend);
-            
-            // Remove welcome message
-            const welcome = document.getElementById('welcomeMessage');
-            if (welcome && welcome.parentNode) welcome.remove();
-            
-            // Show typing
-            document.getElementById('typingIndicator').style.display = 'block';
-            document.getElementById('messagesArea').scrollTop = document.getElementById('messagesArea').scrollHeight;
-            
-            try {
-                const response = await callGemini(displayMessage, imageDataToSend);
-                document.getElementById('typingIndicator').style.display = 'none';
-                addMessageToUI(response, 'ai');
-                memory.addMessage('assistant', response);
-            } catch (error) {
-                document.getElementById('typingIndicator').style.display = 'none';
-                addMessageToUI('عذراً، حدث خطأ في الاتصال. حاول مرة أخرى.', 'ai');
-                console.error('Error:', error);
-            }
-        }
+        // sendMessage defined below
 
         function handleKeyDown(event) {
             if (event.key === 'Enter' && !event.shiftKey) {
@@ -2908,59 +3982,19 @@ ADHD والعواطف:
             textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
         }
 
-        // ===== LOGIN =====
-        function handleLogin(event) {
-            event.preventDefault();
-            const password = document.getElementById('passwordInput').value;
-            if (password === PASSWORD) {
-                document.getElementById('loginPage').classList.remove('active');
-                document.getElementById('chatPage').classList.add('active');
-                localStorage.setItem('nafsy_logged_in', 'true');
-                loadCurrentChat();
-                renderResources();
-                renderProfile();
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-                document.getElementById('passwordInput').value = '';
-                setTimeout(() => {
-                    document.getElementById('loginError').style.display = 'none';
-                }, 2000);
-            }
-            return false;
-        }
+        // ===== LOGIN (handled via PIN keypad - loginPinKey()) =====
 
         function logout() {
             localStorage.removeItem('nafsy_logged_in');
-            document.getElementById('chatPage').classList.remove('active');
-            document.getElementById('resourcesPage').classList.remove('active');
-            document.getElementById('profilePage').classList.remove('active');
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('loginPage').classList.add('active');
-            document.getElementById('passwordInput').value = '';
+            loginPinValue = '';
+            updatePinDots('login', 0);
             closeMenu();
         }
 
         // ===== NAVIGATION =====
-        function showPage(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
-            if (page === 'chat') {
-                document.getElementById('chatPage').classList.add('active');
-            } else if (page === 'resources') {
-                document.getElementById('resourcesPage').classList.add('active');
-                renderResources();
-            } else if (page === 'profile') {
-                document.getElementById('profilePage').classList.add('active');
-                renderProfile();
-            }
-            
-            // Update nav
-            document.querySelectorAll('.nav-item').forEach(n => {
-                if (n.textContent.includes(page === 'chat' ? 'المحادثة' : page === 'resources' ? 'الموارد' : 'ملفي')) {
-                    n.classList.add('active');
-                }
-            });
-        }
+        // showPage defined below
 
         // ===== MENU =====
         function openMenu() {
@@ -3201,19 +4235,7 @@ ADHD والعواطف:
         // ===== RESOURCES =====
         let currentResourceFilter = 'all';
 
-        function filterResources(category) {
-            currentResourceFilter = category;
-            document.querySelectorAll('.resources-tab').forEach(tab => {
-                tab.classList.toggle('active', tab.textContent.includes(
-                    category === 'all' ? 'الكل' :
-                    category === 'trauma' ? 'الصدمات' :
-                    category === 'narcissism' ? 'النرجسية' :
-                    category === 'addiction' ? 'الإدمان' :
-                    category === 'sex' ? 'العلاج الجنسي' : 'ADHD'
-                ));
-            });
-            renderResources();
-        }
+        // filterResources defined below
 
         function renderResources() {
             const list = document.getElementById('resourcesList');
@@ -3264,7 +4286,761 @@ ADHD والعواطف:
             }
         }
 
-        // ===== PROFILE =====
+        // renderProfile defined below
+
+                function requestPersonalityAnalysis() {
+            const input = document.getElementById('messageInput');
+            input.value = 'أريد تحليل شامل لشخصيتي بناءً على محادثاتنا السابقة';
+            sendMessage();
+        }
+
+
+        // ===== ONBOARDING & SETUP =====
+        let setupPinValue = '';
+        let loginPinValue = '';
+
+        function saveApiKey() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (!key || !key.startsWith('AIza') || key.length < 30) {
+                document.getElementById('apiKeyError').style.display = 'block';
+                return;
+            }
+            document.getElementById('apiKeyError').style.display = 'none';
+            localStorage.setItem('nafsy_api_key', key);
+            document.getElementById('apiKeyPage').classList.remove('active');
+            if (!localStorage.getItem('nafsy_pin')) {
+                document.getElementById('pinSetupPage').classList.add('active');
+            } else {
+                document.getElementById('loginPage').classList.add('active');
+            }
+        }
+
+        function setupPinKey(key) {
+            if (key === 'del') {
+                setupPinValue = setupPinValue.slice(0, -1);
+            } else {
+                if (setupPinValue.length >= 4) return;
+                setupPinValue += key;
+            }
+            updatePinDots('setup', setupPinValue.length);
+            if (setupPinValue.length === 4) {
+                localStorage.setItem('nafsy_pin', setupPinValue);
+                setupPinValue = '';
+                updatePinDots('setup', 0);
+                document.getElementById('pinSetupPage').classList.remove('active');
+                document.getElementById('loginPage').classList.add('active');
+            }
+        }
+
+        function loginPinKey(key) {
+            if (key === 'del') {
+                loginPinValue = loginPinValue.slice(0, -1);
+            } else {
+                if (loginPinValue.length >= 4) return;
+                loginPinValue += key;
+            }
+            updatePinDots('login', loginPinValue.length);
+            if (loginPinValue.length === 4) {
+                if (loginPinValue === getPin()) {
+                    loginPinValue = '';
+                    updatePinDots('login', 0);
+                    document.getElementById('loginError').style.display = 'none';
+                    document.getElementById('loginPage').classList.remove('active');
+                    document.getElementById('chatPage').classList.add('active');
+                    localStorage.setItem('nafsy_logged_in', 'true');
+                    loadCurrentChat();
+                    renderResources();
+                    renderProfile();
+                    checkMoodCheckin();
+                    applyTheme();
+                } else {
+                    loginPinValue = '';
+                    updatePinDots('login', 0);
+                    const err = document.getElementById('loginError');
+                    err.style.display = 'block';
+                    setTimeout(() => { err.style.display = 'none'; }, 2000);
+                    // Shake animation
+                    const dots = document.querySelectorAll('#loginDot0, #loginDot1, #loginDot2, #loginDot3');
+                    dots.forEach(d => { d.style.background = '#ff5555'; });
+                    setTimeout(() => {
+                        document.querySelectorAll('[id^="loginDot"]').forEach(d => {
+                            d.style.background = 'var(--bg-tertiary)';
+                        });
+                    }, 500);
+                }
+            }
+        }
+
+        function updatePinDots(type, count) {
+            for (let i = 0; i < 4; i++) {
+                const dot = document.getElementById(`${type}Dot${i}`);
+                if (dot) {
+                    dot.classList.toggle('filled', i < count);
+                }
+            }
+        }
+
+        // ===== THEME =====
+        function applyTheme() {
+            const theme = localStorage.getItem('nafsy_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme === 'light' ? 'light' : '');
+            const toggle = document.getElementById('themeToggle');
+            const label = document.getElementById('themeLabel');
+            if (toggle) toggle.classList.toggle('on', theme === 'light');
+            if (label) label.textContent = `الوضع الحالي: ${theme === 'light' ? 'فاتح' : 'داكن'}`;
+        }
+
+        function toggleTheme() {
+            const current = localStorage.getItem('nafsy_theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('nafsy_theme', next);
+            applyTheme();
+        }
+
+        // ===== SETTINGS =====
+        function openSettings() {
+            closeMenu();
+            // Update API key display
+            const key = getApiKey();
+            const masked = key ? key.substring(0, 8) + '...' + key.slice(-4) : '(غير محدد)';
+            document.getElementById('apiKeyDisplay').value = masked;
+            document.getElementById('newApiKeySection').style.display = 'none';
+            document.getElementById('settingsPanel').classList.add('active');
+            applyTheme();
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsPanel').classList.remove('active');
+        }
+
+        function changePin() {
+            const newPin = document.getElementById('newPinInput').value.trim();
+            const confirmPin = document.getElementById('confirmPinInput').value.trim();
+            const msg = document.getElementById('pinChangeMsg');
+            if (newPin.length !== 4 || !/^\d{4}$/.test(newPin)) {
+                msg.textContent = '❌ الرمز يجب أن يكون 4 أرقام';
+                msg.style.color = '#ff5555';
+                msg.style.display = 'block';
+                return;
+            }
+            if (newPin !== confirmPin) {
+                msg.textContent = '❌ الرمزان غير متطابقان';
+                msg.style.color = '#ff5555';
+                msg.style.display = 'block';
+                return;
+            }
+            localStorage.setItem('nafsy_pin', newPin);
+            msg.textContent = '✅ تم تغيير الرمز بنجاح';
+            msg.style.color = '#4ade80';
+            msg.style.display = 'block';
+            document.getElementById('newPinInput').value = '';
+            document.getElementById('confirmPinInput').value = '';
+            setTimeout(() => { msg.style.display = 'none'; }, 3000);
+        }
+
+        function changeApiKey() {
+            const section = document.getElementById('newApiKeySection');
+            section.style.display = section.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function saveNewApiKey() {
+            const key = document.getElementById('newApiKeyInput').value.trim();
+            if (!key || !key.startsWith('AIza') || key.length < 30) {
+                const display = document.getElementById('apiKeyDisplay');
+                display.style.borderColor = '#ff5555';
+                setTimeout(() => { display.style.borderColor = ''; }, 2000);
+                return;
+            }
+            localStorage.setItem('nafsy_api_key', key);
+            const masked = key.substring(0, 8) + '...' + key.slice(-4);
+            document.getElementById('apiKeyDisplay').value = masked;
+            document.getElementById('newApiKeyInput').value = '';
+            document.getElementById('newApiKeySection').style.display = 'none';
+            const pinMsg = document.getElementById('pinChangeMsg');
+            if (pinMsg) { pinMsg.textContent = '✅ تم حفظ المفتاح بنجاح'; pinMsg.style.color = '#4ade80'; pinMsg.style.display = 'block'; setTimeout(() => { pinMsg.style.display = 'none'; }, 3000); }
+        }
+
+        // ===== MOOD TRACKER =====
+        const MOOD_EMOJIS = [
+            { emoji: '😔', label: 'حزين جداً', color: '#6366f1' },
+            { emoji: '😟', label: 'متضايق', color: '#8b5cf6' },
+            { emoji: '😐', label: 'عادي', color: '#6b7280' },
+            { emoji: '😊', label: 'بخير', color: '#10b981' },
+            { emoji: '😄', label: 'ممتاز', color: '#f59e0b' }
+        ];
+
+        function checkMoodCheckin() {
+            const today = new Date().toDateString();
+            const lastCheckin = localStorage.getItem('nafsy_mood_date');
+            if (lastCheckin !== today) {
+                showMoodCheckin();
+            }
+        }
+
+        function showMoodCheckin() {
+            const area = document.getElementById('messagesArea');
+            const existing = document.getElementById('moodCheckinCard');
+            if (existing) existing.remove();
+            
+            const card = document.createElement('div');
+            card.className = 'mood-checkin-card';
+            card.id = 'moodCheckinCard';
+            card.innerHTML = `
+                <div class="mood-checkin-title">☀️ كيف حالك اليوم؟</div>
+                <div class="mood-options">
+                    ${MOOD_EMOJIS.map(m => `
+                        <button class="mood-option" onclick="selectMood('${m.emoji}', '${m.label}')">
+                            <span class="mood-emoji">${m.emoji}</span>
+                            <span class="mood-label">${m.label}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            const typing = document.getElementById('typingIndicator');
+            area.insertBefore(card, typing);
+            area.scrollTop = 0;
+        }
+
+        function selectMood(emoji, label) {
+            const today = new Date().toDateString();
+            localStorage.setItem('nafsy_mood_date', today);
+            
+            const history = JSON.parse(localStorage.getItem('nafsy_mood_history') || '[]');
+            history.push({ date: today, mood: label, emoji: emoji, timestamp: new Date().toISOString() });
+            // Keep last 90 days
+            while (history.length > 90) history.shift();
+            localStorage.setItem('nafsy_mood_history', JSON.stringify(history));
+            
+            const card = document.getElementById('moodCheckinCard');
+            if (card) {
+                card.style.opacity = '0';
+                card.style.transition = 'opacity 0.3s';
+                setTimeout(() => card.remove(), 300);
+            }
+        }
+
+        function getMoodTrendHtml() {
+            const history = JSON.parse(localStorage.getItem('nafsy_mood_history') || '[]');
+            if (history.length === 0) return '';
+            const last7 = history.slice(-7);
+            const dots = last7.map(entry => {
+                const m = MOOD_EMOJIS.find(x => x.emoji === entry.emoji) || MOOD_EMOJIS[2];
+                const dateStr = new Date(entry.timestamp).toLocaleDateString('ar-EG', { weekday: 'short' });
+                return `<div class="mood-trend-dot">
+                    <div class="dot" style="background:${m.color};">${entry.emoji}</div>
+                    <span class="dot-date">${dateStr}</span>
+                </div>`;
+            }).join('');
+            return `
+                <div class="mood-trend-section">
+                    <h3 class="section-title">🌤️ مزاجك آخر 7 أيام</h3>
+                    <div class="mood-trend-dots">${dots}</div>
+                </div>
+            `;
+        }
+
+        // ===== CRISIS DETECTION =====
+        const CRISIS_KEYWORDS = [
+            'أنتحر', 'انتحر', 'اقتل نفسي', 'أموت', 'مش قادر أكمل', 'مش قادر اكمل',
+            'نهاية حياتي', 'أذي نفسي', 'اذي نفسي', 'يأس شديد', 'يائس من الحياة',
+            'لا فايدة من الحياة', 'ما أبي أكمل', 'ما ابي اكمل', 'ما أريد أن أكمل',
+            'إنهاء حياتي', 'انهاء حياتي', 'أريد أن أموت', 'اريد ان اموت',
+            'أفكر في الانتحار', 'خلاص ما فيه أمل', 'ودي أموت', 'نفسي أموت'
+        ];
+
+        let pendingCrisisMessage = null;
+
+        function hasCrisisKeyword(text) {
+            return CRISIS_KEYWORDS.some(kw => text.includes(kw));
+        }
+
+        function showCrisisModal(message) {
+            pendingCrisisMessage = message;
+            document.getElementById('crisisModal').classList.add('active');
+        }
+
+        function closeCrisisModal() {
+            document.getElementById('crisisModal').classList.remove('active');
+            pendingCrisisMessage = null;
+        }
+
+        function continueToChatFromCrisis() {
+            document.getElementById('crisisModal').classList.remove('active');
+            if (pendingCrisisMessage) {
+                const msg = pendingCrisisMessage;
+                pendingCrisisMessage = null;
+                processSendMessage(msg, null, true);
+            }
+        }
+
+        // ===== CHAT FUNCTIONS (Updated) =====
+        function addMessageToUI(content, type, imageData = null, scroll = true) {
+            const area = document.getElementById('messagesArea');
+            const typing = document.getElementById('typingIndicator');
+            
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message message-${type}`;
+            
+            if (imageData && type === 'user') {
+                const img = document.createElement('img');
+                img.src = `data:${imageData.mimeType};base64,${imageData.base64}`;
+                img.className = 'message-image';
+                msgDiv.appendChild(img);
+            }
+            
+            const textDiv = document.createElement('div');
+            if (type === 'ai') {
+                textDiv.innerHTML = renderMarkdown(content);
+            } else {
+                textDiv.textContent = content;
+            }
+            msgDiv.appendChild(textDiv);
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            timeDiv.textContent = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+            msgDiv.appendChild(timeDiv);
+            
+            area.insertBefore(msgDiv, typing);
+            
+            if (scroll) {
+                area.scrollTop = area.scrollHeight;
+            }
+        }
+
+        function renderMarkdown(text) {
+            // Escape HTML
+            let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            // Bold: **text** (limit capture to 200 chars to prevent ReDoS)
+            html = html.replace(/\*\*(.{1,200}?)\*\*/g, '<strong>$1</strong>');
+            // Bullets: lines starting with •
+            html = html.replace(/^• (.+)$/gm, '<span style="display:block;padding-right:8px;">• $1</span>');
+            // Newlines
+            html = html.replace(/\n/g, '<br>');
+            return html;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message && !selectedFile) return;
+            
+            // Send button pulse
+            const sendBtn = document.querySelector('.send-btn');
+            if (sendBtn) {
+                sendBtn.classList.add('pulse');
+                setTimeout(() => sendBtn.classList.remove('pulse'), 300);
+            }
+            
+            let displayMessage = message;
+            if (selectedFile && !selectedImageData) {
+                displayMessage = `[ملف: ${selectedFile.name}]\n${message}`;
+            }
+            
+            const imageDataToSend = selectedImageData;
+            
+            input.value = '';
+            autoResize(input);
+            removeFile();
+            
+            // Check for crisis keywords
+            if (hasCrisisKeyword(displayMessage)) {
+                showCrisisModal(displayMessage);
+                // Add to UI but wait for crisis modal decision
+                addMessageToUI(displayMessage, 'user', imageDataToSend);
+                memory.addMessage('user', displayMessage, imageDataToSend);
+                const welcome = document.getElementById('welcomeMessage');
+                if (welcome && welcome.parentNode) welcome.remove();
+                return;
+            }
+            
+            processSendMessage(displayMessage, imageDataToSend, false);
+        }
+
+        async function processSendMessage(displayMessage, imageDataToSend, isCrisis) {
+            // Check API key first — guide user to Settings if missing
+            if (!getApiKey()) {
+                addMessageToUI('⚙️ لم يتم تعيين مفتاح API بعد. افتح الإعدادات (القائمة ← الإعدادات) وأدخل مفتاح Gemini API الخاص بك.', 'ai');
+                return;
+            }
+
+            // Add user message to UI (if not already added)
+            if (!isCrisis) {
+                addMessageToUI(displayMessage, 'user', imageDataToSend);
+                memory.addMessage('user', displayMessage, imageDataToSend);
+            }
+            
+            // Remove welcome message
+            const welcome = document.getElementById('welcomeMessage');
+            if (welcome && welcome.parentNode) welcome.remove();
+            
+            // Show typing
+            const typingEl = document.getElementById('typingIndicator');
+            const messagesArea = document.getElementById('messagesArea');
+            typingEl.style.display = 'block';
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+            
+            try {
+                let msgToSend = displayMessage;
+                if (isCrisis) {
+                    msgToSend = displayMessage + '\n\n[ملاحظة للذكاء الاصطناعي: المستخدم يعبر عن أفكار صعبة جداً. أجب بدفء وتعاطف استثنائيين، وركز على الاستماع وإظهار الاهتمام.]';
+                }
+                const response = await callGemini(msgToSend, imageDataToSend);
+                typingEl.style.display = 'none';
+                addMessageToUI(response, 'ai');
+                memory.addMessage('assistant', response);
+            } catch (error) {
+                typingEl.style.display = 'none';
+                addMessageToUI('عذراً، حدث خطأ في الاتصال. تأكد من صحة مفتاح API وحاول مرة أخرى.', 'ai');
+                console.error('Error:', error);
+            }
+        }
+
+        // ===== SCROLL TO BOTTOM =====
+        function handleChatScroll() {
+            const area = document.getElementById('messagesArea');
+            const btn = document.getElementById('scrollBottomBtn');
+            if (!btn) return;
+            const isNearBottom = area.scrollHeight - area.scrollTop - area.clientHeight < 100;
+            btn.classList.toggle('visible', !isNearBottom);
+        }
+
+        function scrollToBottom() {
+            const area = document.getElementById('messagesArea');
+            area.scrollTop = area.scrollHeight;
+        }
+
+        // ===== NAVIGATION (Updated) =====
+        function showPage(page) {
+            // Stop breathing if navigating away
+            if (page !== 'breathing' && breathingActive) {
+                stopBreathing();
+            }
+            
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            const pageMap = {
+                'chat': 'chatPage',
+                'resources': 'resourcesPage',
+                'breathing': 'breathingPage',
+                'journal': 'journalPage',
+                'profile': 'profilePage'
+            };
+            
+            const pageId = pageMap[page];
+            if (pageId) {
+                document.getElementById(pageId).classList.add('active');
+            }
+            
+            // Update nav active state
+            document.querySelectorAll(`[data-page="${page}"]`).forEach(n => n.classList.add('active'));
+            
+            if (page === 'resources') renderResources();
+            if (page === 'profile') renderProfile();
+            if (page === 'journal') renderJournal();
+        }
+
+        // ===== UPDATED RESOURCES FILTER =====
+        function filterResources(category) {
+            currentResourceFilter = category;
+            document.querySelectorAll('.resources-tab').forEach(tab => {
+                const tabMap = {
+                    'all': 'الكل',
+                    'trauma': 'الصدمات',
+                    'narcissism': 'النرجسية',
+                    'addiction': 'الإدمان',
+                    'sex': 'العلاج الجنسي',
+                    'adhd': 'ADHD',
+                    'anxiety': 'القلق',
+                    'depression': 'الاكتئاب',
+                    'grief': 'الحزن والخسارة',
+                    'selfesteem': 'تقدير الذات'
+                };
+                tab.classList.toggle('active', tab.textContent.trim() === (tabMap[category] || category));
+            });
+            renderResources();
+        }
+
+        // ===== BREATHING EXERCISES =====
+        const BREATHING_EXERCISES = {
+            '478': {
+                name: 'تنفس 4-7-8',
+                phases: [
+                    { label: 'شهيق', duration: 4, action: 'expand' },
+                    { label: 'حبس النفس', duration: 7, action: 'hold' },
+                    { label: 'زفير', duration: 8, action: 'contract' }
+                ]
+            },
+            'box': {
+                name: 'تنفس الصندوق',
+                phases: [
+                    { label: 'شهيق', duration: 4, action: 'expand' },
+                    { label: 'حبس', duration: 4, action: 'hold' },
+                    { label: 'زفير', duration: 4, action: 'contract' },
+                    { label: 'حبس', duration: 4, action: 'hold' }
+                ]
+            },
+            'calm': {
+                name: 'تنفس الهدوء',
+                phases: [
+                    { label: 'شهيق', duration: 5, action: 'expand' },
+                    { label: 'زفير', duration: 5, action: 'contract' }
+                ]
+            }
+        };
+
+        let breathingActive = false;
+        let breathingExercise = null;
+        let breathingTimer = null;
+        let breathingCycleCount = 0;
+        let currentPhaseIndex = 0;
+        let currentPhaseTime = 0;
+        let breathingAnimFrame = null;
+
+        function selectBreathingExercise(id) {
+            breathingExercise = id;
+            document.querySelectorAll('.breathing-exercise-btn').forEach(b => b.classList.remove('active-exercise'));
+            const btn = document.getElementById(`exBtn${id === '478' ? '478' : id === 'box' ? 'Box' : 'Calm'}`);
+            if (btn) btn.classList.add('active-exercise');
+            document.getElementById('breathPhaseLabel').textContent = BREATHING_EXERCISES[id].name;
+            document.getElementById('breathTimer').textContent = BREATHING_EXERCISES[id].phases[0].duration;
+            document.getElementById('breathCycles').textContent = '';
+        }
+
+        function toggleBreathing() {
+            if (breathingActive) {
+                stopBreathing();
+            } else {
+                startBreathing();
+            }
+        }
+
+        function startBreathing() {
+            if (!breathingExercise) {
+                selectBreathingExercise('478');
+            }
+            breathingActive = true;
+            breathingCycleCount = 0;
+            currentPhaseIndex = 0;
+            currentPhaseTime = 0;
+            const btn = document.getElementById('breathStartBtn');
+            btn.textContent = 'إيقاف';
+            btn.classList.add('stop-btn');
+            runBreathingPhase();
+        }
+
+        function stopBreathing() {
+            breathingActive = false;
+            if (breathingTimer) clearInterval(breathingTimer);
+            breathingTimer = null;
+            const btn = document.getElementById('breathStartBtn');
+            if (btn) { btn.textContent = 'ابدأ'; btn.classList.remove('stop-btn'); }
+            document.getElementById('breathPhaseLabel').textContent = breathingExercise ? BREATHING_EXERCISES[breathingExercise].name : 'اختر تمريناً';
+            document.getElementById('breathTimer').textContent = '-';
+            document.getElementById('breathCycles').textContent = '';
+            animateBreathingCircle(0, 'contract');
+        }
+
+        function runBreathingPhase() {
+            if (!breathingActive) return;
+            const ex = BREATHING_EXERCISES[breathingExercise];
+            const phase = ex.phases[currentPhaseIndex];
+            currentPhaseTime = phase.duration;
+            
+            document.getElementById('breathPhaseLabel').textContent = phase.label;
+            document.getElementById('breathTimer').textContent = currentPhaseTime;
+            animateBreathingCircle(phase.duration, phase.action);
+            
+            breathingTimer = setInterval(() => {
+                if (!breathingActive) { clearInterval(breathingTimer); return; }
+                currentPhaseTime--;
+                document.getElementById('breathTimer').textContent = currentPhaseTime;
+                
+                if (currentPhaseTime <= 0) {
+                    clearInterval(breathingTimer);
+                    currentPhaseIndex++;
+                    if (currentPhaseIndex >= ex.phases.length) {
+                        currentPhaseIndex = 0;
+                        breathingCycleCount++;
+                        document.getElementById('breathCycles').textContent = `دورة ${breathingCycleCount}`;
+                    }
+                    setTimeout(() => { if (breathingActive) runBreathingPhase(); }, 200);
+                }
+            }, 1000);
+        }
+
+        function animateBreathingCircle(duration, action) {
+            const inner = document.getElementById('breathInner');
+            const ring = document.getElementById('breathRing');
+            if (!inner || !ring) return;
+            
+            const circumference = 2 * Math.PI * 85; // r=85
+            const minR = 40, maxR = 80;
+            const startR = action === 'expand' ? minR : (action === 'contract' ? maxR : parseFloat(inner.getAttribute('r')) || 60);
+            const endR = action === 'expand' ? maxR : (action === 'contract' ? minR : startR);
+            const startOffset = action === 'expand' ? circumference : 0;
+            const endOffset = action === 'expand' ? 0 : circumference;
+            
+            if (duration === 0) {
+                inner.setAttribute('r', minR);
+                ring.style.strokeDashoffset = circumference;
+                return;
+            }
+            
+            const totalMs = duration * 1000;
+            const startTime = performance.now();
+            
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / totalMs, 1);
+                const currentR = startR + (endR - startR) * progress;
+                const currentOffset = startOffset + (endOffset - startOffset) * progress;
+                inner.setAttribute('r', currentR);
+                ring.style.strokeDashoffset = currentOffset;
+                if (progress < 1 && breathingActive) {
+                    requestAnimationFrame(step);
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        // ===== JOURNAL FEATURE =====
+        let selectedJournalMood = '';
+        let currentViewEntry = null;
+
+        function renderJournal() {
+            const list = document.getElementById('journalList');
+            const entries = JSON.parse(localStorage.getItem('nafsy_journal') || '[]');
+            
+            if (entries.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📓</div>
+                        <p>لا توجد تدوينات بعد</p>
+                        <p style="font-size:14px;margin-top:10px;color:var(--text-muted)">ابدأ بكتابة أفكارك الأولى</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = [...entries].reverse().map((entry, idx) => {
+                const realIdx = entries.length - 1 - idx;
+                const date = new Date(entry.timestamp);
+                const dateStr = date.toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                return `
+                    <div class="journal-entry-card" onclick="viewJournalEntry(${realIdx})">
+                        <div class="journal-entry-date">${dateStr}</div>
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                            <div style="flex:1;">
+                                ${entry.title ? `<div class="journal-entry-title">${entry.title}</div>` : ''}
+                                <div class="journal-entry-preview">${entry.body || '(بدون نص)'}</div>
+                            </div>
+                            ${entry.mood ? `<span class="journal-entry-mood">${entry.mood}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openJournalEditor() {
+            document.getElementById('journalTitle').value = '';
+            document.getElementById('journalBody').value = '';
+            selectedJournalMood = '';
+            document.querySelectorAll('.journal-mood-btn').forEach(b => b.classList.remove('selected'));
+            document.getElementById('journalEditor').classList.add('active');
+        }
+
+        function closeJournalEditor() {
+            document.getElementById('journalEditor').classList.remove('active');
+        }
+
+        function selectJournalMood(emoji) {
+            selectedJournalMood = emoji;
+            document.querySelectorAll('.journal-mood-btn').forEach(b => {
+                b.classList.toggle('selected', b.dataset.mood === emoji);
+            });
+        }
+
+        function saveJournalEntry() {
+            const title = document.getElementById('journalTitle').value.trim();
+            const body = document.getElementById('journalBody').value.trim();
+            if (!body) { alert('الرجاء كتابة شيء في التدوينة'); return; }
+            
+            const entries = JSON.parse(localStorage.getItem('nafsy_journal') || '[]');
+            entries.push({
+                id: Date.now(),
+                timestamp: new Date().toISOString(),
+                title: title,
+                body: body,
+                mood: selectedJournalMood
+            });
+            localStorage.setItem('nafsy_journal', JSON.stringify(entries));
+            closeJournalEditor();
+            renderJournal();
+        }
+
+        function viewJournalEntry(index) {
+            const entries = JSON.parse(localStorage.getItem('nafsy_journal') || '[]');
+            const entry = entries[index];
+            if (!entry) return;
+            currentViewEntry = entry;
+            
+            const date = new Date(entry.timestamp);
+            document.getElementById('viewEntryDate').textContent = date.toLocaleDateString('ar-EG', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+            });
+            document.getElementById('viewEntryTitle').textContent = entry.title || '(بدون عنوان)';
+            document.getElementById('viewEntryMood').textContent = entry.mood || '';
+            document.getElementById('viewEntryBody').textContent = entry.body;
+            document.getElementById('journalViewer').classList.add('active');
+        }
+
+        function closeJournalViewer() {
+            document.getElementById('journalViewer').classList.remove('active');
+            currentViewEntry = null;
+        }
+
+        function sendJournalToChat() {
+            const title = document.getElementById('journalTitle').value.trim();
+            const body = document.getElementById('journalBody').value.trim();
+            if (!body) { alert('الرجاء كتابة شيء أولاً'); return; }
+            
+            const mood = selectedJournalMood;
+            let prompt = `أريد أن أتحدث عن تدوينتي اليومية:`;
+            if (title) prompt += `\nالعنوان: ${title}`;
+            if (mood) prompt += `\nمزاجي: ${mood}`;
+            prompt += `\n\n${body}`;
+            
+            closeJournalEditor();
+            showPage('chat');
+            document.getElementById('messageInput').value = prompt;
+        }
+
+        function sendViewedEntryToChat() {
+            if (!currentViewEntry) return;
+            let prompt = `أريد أن نناقش هذه التدوينة من يومياتي:`;
+            if (currentViewEntry.title) prompt += `\nالعنوان: ${currentViewEntry.title}`;
+            if (currentViewEntry.mood) prompt += `\nمزاجي: ${currentViewEntry.mood}`;
+            prompt += `\n\n${currentViewEntry.body}`;
+            
+            closeJournalViewer();
+            showPage('chat');
+            document.getElementById('messageInput').value = prompt;
+        }
+
+        // ===== UPDATED MEMORY CLEARALL =====
+        // Extend the original clearAll to also remove new keys
+        const _originalClearAll = Memory.prototype.clearAll;
+        Memory.prototype.clearAll = function() {
+            _originalClearAll.call(this);
+            localStorage.removeItem('nafsy_mood_date');
+            localStorage.removeItem('nafsy_mood_history');
+            localStorage.removeItem('nafsy_journal');
+        };
+
+        // ===== UPDATED PROFILE RENDER =====
         function renderProfile() {
             const stats = memory.getStats();
             const profile = memory.profile;
@@ -3274,9 +5050,7 @@ ADHD والعواطف:
             
             const content = document.getElementById('profileContent');
             
-            // Build psychological indicators section
             let psychIndicators = '';
-            
             if (psych.adhd?.suspected || psych.adhd?.diagnosed) {
                 psychIndicators += `<span class="indicator-tag adhd">ADHD ${psych.adhd.diagnosed ? '(مشخص)' : '(مشتبه)'}</span>`;
             }
@@ -3290,169 +5064,88 @@ ADHD والعواطف:
                 psychIndicators += `<span class="indicator-tag trauma">صدمات</span>`;
             }
             
-            // Build themes section
             let themesHtml = '';
             if (significant.themes?.length > 0) {
                 const themeNames = {
-                    'trauma': 'الصدمات',
-                    'relationships': 'العلاقات',
-                    'family': 'العائلة',
-                    'work': 'العمل',
-                    'self_worth': 'قيمة الذات',
-                    'addiction': 'الإدمان',
-                    'anxiety': 'القلق',
-                    'depression': 'الاكتئاب'
+                    'trauma': 'الصدمات', 'relationships': 'العلاقات', 'family': 'العائلة',
+                    'work': 'العمل', 'self_worth': 'قيمة الذات', 'addiction': 'الإدمان',
+                    'anxiety': 'القلق', 'depression': 'الاكتئاب'
                 };
-                themesHtml = significant.themes.map(t => 
-                    `<span class="theme-tag">${themeNames[t] || t}</span>`
-                ).join('');
+                themesHtml = significant.themes.map(t => `<span class="theme-tag">${themeNames[t] || t}</span>`).join('');
             }
             
-            // Build mood history
             let moodHtml = '';
             if (emotional.moodHistory?.length > 0) {
                 const emotionNames = {
-                    'anger': '😠 غضب',
-                    'sadness': '😢 حزن',
-                    'anxiety': '😰 قلق',
-                    'shame': '😳 خجل',
-                    'loneliness': '😔 وحدة',
-                    'hope': '🌟 أمل',
-                    'love': '❤️ حب',
-                    'fear': '😨 خوف'
+                    'anger': '😠 غضب', 'sadness': '😢 حزن', 'anxiety': '😰 قلق',
+                    'shame': '😳 خجل', 'loneliness': '😔 وحدة', 'hope': '🌟 أمل',
+                    'love': '❤️ حب', 'fear': '😨 خوف'
                 };
                 const recentMoods = emotional.moodHistory.slice(-10);
                 const moodCounts = {};
-                recentMoods.forEach(m => {
-                    m.emotions.forEach(e => {
-                        moodCounts[e] = (moodCounts[e] || 0) + 1;
-                    });
-                });
-                moodHtml = Object.entries(moodCounts)
-                    .sort((a, b) => b[1] - a[1])
-                    .slice(0, 5)
-                    .map(([e, c]) => `<span class="mood-tag">${emotionNames[e] || e} (${c})</span>`)
-                    .join('');
+                recentMoods.forEach(m => m.emotions.forEach(e => { moodCounts[e] = (moodCounts[e] || 0) + 1; }));
+                moodHtml = Object.entries(moodCounts).sort((a, b) => b[1] - a[1]).slice(0, 5)
+                    .map(([e, c]) => `<span class="mood-tag">${emotionNames[e] || e} (${c})</span>`).join('');
             }
             
-            // Build people section
             let peopleHtml = '';
             if (significant.people?.length > 0) {
-                const relationNames = {
-                    'mother': 'الأم',
-                    'father': 'الأب',
-                    'brother': 'أخ',
-                    'sister': 'أخت',
-                    'husband': 'زوج',
-                    'wife': 'زوجة',
-                    'partner': 'شريك',
-                    'friend': 'صديق'
-                };
-                peopleHtml = significant.people.map(p => 
-                    `<span class="people-tag">${relationNames[p.relation] || p.relation} (${p.mentions} ذكر)</span>`
-                ).join('');
+                const relationNames = { 'mother': 'الأم', 'father': 'الأب', 'brother': 'أخ', 'sister': 'أخت', 'husband': 'زوج', 'wife': 'زوجة', 'partner': 'شريك', 'friend': 'صديق' };
+                peopleHtml = significant.people.map(p => `<span class="people-tag">${relationNames[p.relation] || p.relation} (${p.mentions} ذكر)</span>`).join('');
             }
             
-            // Build insights section
             let insightsHtml = '';
             if (profile.aiObservations?.keyInsights?.length > 0) {
-                insightsHtml = profile.aiObservations.keyInsights.slice(-5).map(i => 
-                    `<div class="insight-item">💡 ${typeof i === 'object' ? i.text : i}</div>`
-                ).join('');
+                insightsHtml = profile.aiObservations.keyInsights.slice(-5).map(i => `<div class="insight-item">💡 ${typeof i === 'object' ? i.text : i}</div>`).join('');
             }
             
-            // Build goals section  
             let goalsHtml = '';
             if (profile.goals?.inProgress?.length > 0) {
-                goalsHtml = profile.goals.inProgress.map(g => 
-                    `<div class="goal-item">🎯 ${typeof g === 'object' ? g.text : g}</div>`
-                ).join('');
+                goalsHtml = profile.goals.inProgress.map(g => `<div class="goal-item">🎯 ${typeof g === 'object' ? g.text : g}</div>`).join('');
             }
             
-            // Build completed goals
             let completedGoalsHtml = '';
             if (profile.goals?.completed?.length > 0) {
-                completedGoalsHtml = profile.goals.completed.slice(-3).map(g => 
-                    `<div class="goal-completed">✅ ${typeof g === 'object' ? g.text : g}</div>`
-                ).join('');
+                completedGoalsHtml = profile.goals.completed.slice(-3).map(g => `<div class="goal-completed">✅ ${typeof g === 'object' ? g.text : g}</div>`).join('');
             }
+
+            const moodTrendHtml = getMoodTrendHtml();
+            
+            const emptyState = stats.totalMessages === 0 ? `
+                <div class="analysis-card" style="text-align:center;padding:30px;">
+                    <div style="font-size:48px;margin-bottom:16px;">🌱</div>
+                    <h3 style="margin-bottom:10px;">ملفك الشخصي فارغ حتى الآن</h3>
+                    <p style="color:var(--text-secondary);font-size:14px;line-height:1.6;">
+                        ابدأ محادثتك مع نفسي وسيتشكل ملفك الشخصي تلقائياً بناءً على ما تشاركه.
+                    </p>
+                    <button class="action-btn" style="margin-top:16px;" onclick="showPage('chat')">💬 ابدأ المحادثة الآن</button>
+                </div>
+            ` : '';
             
             content.innerHTML = `
                 <div class="profile-header">
                     <div class="profile-avatar">
-                        <div class="avatar-eyes">
-                            <div class="eye"></div>
-                            <div class="eye"></div>
-                        </div>
+                        <div class="avatar-eyes"><div class="eye"></div><div class="eye"></div></div>
                     </div>
                     <h2 class="profile-name">${profile.user?.name || 'ملفك الشخصي'}</h2>
                     <p class="profile-subtitle">تحليل نفسي مستمر مع نفسي</p>
                 </div>
                 
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value">${stats.totalMessages}</div>
-                        <div class="stat-label">رسالة</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">${stats.totalSessions}</div>
-                        <div class="stat-label">جلسة</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">${stats.daysSinceStart}</div>
-                        <div class="stat-label">يوم معاً</div>
-                    </div>
+                    <div class="stat-card"><div class="stat-value">${stats.totalMessages}</div><div class="stat-label">رسالة</div></div>
+                    <div class="stat-card"><div class="stat-value">${stats.totalSessions}</div><div class="stat-label">جلسة</div></div>
+                    <div class="stat-card"><div class="stat-value">${stats.daysSinceStart}</div><div class="stat-label">يوم معاً</div></div>
                 </div>
                 
-                ${psychIndicators ? `
-                    <h3 class="section-title">🔍 المؤشرات النفسية المكتشفة</h3>
-                    <div class="indicators-container">
-                        ${psychIndicators}
-                    </div>
-                ` : ''}
-                
-                ${themesHtml ? `
-                    <h3 class="section-title">📌 المواضيع الرئيسية</h3>
-                    <div class="themes-container">
-                        ${themesHtml}
-                    </div>
-                ` : ''}
-                
-                ${moodHtml ? `
-                    <h3 class="section-title">💭 المشاعر الأخيرة</h3>
-                    <div class="moods-container">
-                        ${moodHtml}
-                    </div>
-                ` : ''}
-                
-                ${peopleHtml ? `
-                    <h3 class="section-title">👥 أشخاص مهمون</h3>
-                    <div class="people-container">
-                        ${peopleHtml}
-                    </div>
-                ` : ''}
-                
-                ${goalsHtml ? `
-                    <h3 class="section-title">🎯 أهدافك الحالية</h3>
-                    <div class="goals-container">
-                        ${goalsHtml}
-                    </div>
-                ` : ''}
-                
-                ${completedGoalsHtml ? `
-                    <h3 class="section-title">✨ إنجازات</h3>
-                    <div class="completed-container">
-                        ${completedGoalsHtml}
-                    </div>
-                ` : ''}
-                
-                ${insightsHtml ? `
-                    <h3 class="section-title">🧠 رؤى وملاحظات</h3>
-                    <div class="insights-container">
-                        ${insightsHtml}
-                    </div>
-                ` : ''}
-                
+                ${emptyState}
+                ${moodTrendHtml}
+                ${psychIndicators ? `<h3 class="section-title">🔍 المؤشرات النفسية المكتشفة</h3><div class="indicators-container">${psychIndicators}</div>` : ''}
+                ${themesHtml ? `<h3 class="section-title">📌 المواضيع الرئيسية</h3><div class="themes-container">${themesHtml}</div>` : ''}
+                ${moodHtml ? `<h3 class="section-title">💭 المشاعر الأخيرة</h3><div class="moods-container">${moodHtml}</div>` : ''}
+                ${peopleHtml ? `<h3 class="section-title">👥 أشخاص مهمون</h3><div class="people-container">${peopleHtml}</div>` : ''}
+                ${goalsHtml ? `<h3 class="section-title">🎯 أهدافك الحالية</h3><div class="goals-container">${goalsHtml}</div>` : ''}
+                ${completedGoalsHtml ? `<h3 class="section-title">✨ إنجازات</h3><div class="completed-container">${completedGoalsHtml}</div>` : ''}
+                ${insightsHtml ? `<h3 class="section-title">🧠 رؤى وملاحظات</h3><div class="insights-container">${insightsHtml}</div>` : ''}
                 ${profile.weeklyReports?.length > 0 ? `
                     <h3 class="section-title">📊 آخر تقرير أسبوعي</h3>
                     <div class="weekly-report">
@@ -3462,13 +5155,7 @@ ADHD والعواطف:
                         </div>
                         <p class="report-content">${profile.weeklyReports[0].content}</p>
                     </div>
-                ` : `
-                    <div class="analysis-card">
-                        <h4 class="analysis-title">📊 التقرير الأسبوعي</h4>
-                        <p class="analysis-content">لم يتم إنشاء تقرير أسبوعي بعد. اطلب تقريراً من الشات.</p>
-                    </div>
-                `}
-                
+                ` : ''}
                 <h3 class="section-title">🎯 تخصصاتي</h3>
                 <div class="analysis-card">
                     <div class="trait-list">
@@ -3479,43 +5166,241 @@ ADHD والعواطف:
                         <span class="trait-tag">ADHD</span>
                     </div>
                 </div>
-                
                 <h3 class="section-title">⚙️ الإجراءات</h3>
-                <button class="action-btn" onclick="requestWeeklyReport(); showPage('chat');">
-                    📊 طلب تقرير أسبوعي
-                </button>
-                <button class="action-btn" onclick="requestPersonalityAnalysis(); showPage('chat');">
-                    🧠 طلب تحليل شخصية
-                </button>
-                <button class="action-btn" onclick="exportData()">
-                    📤 تصدير بياناتي
-                </button>
-                <button class="action-btn danger" onclick="clearAllData()">
-                    🗑️ مسح كل البيانات
-                </button>
+                <button class="action-btn" onclick="requestWeeklyReport(); showPage('chat');">📊 طلب تقرير أسبوعي</button>
+                <button class="action-btn" onclick="requestPersonalityAnalysis(); showPage('chat');">🧠 طلب تحليل شخصية</button>
+                <button class="action-btn" onclick="openSettings()">⚙️ الإعدادات</button>
+                <button class="action-btn" onclick="exportData()">📤 تصدير بياناتي</button>
+                <button class="action-btn danger" onclick="clearAllData()">🗑️ مسح كل البيانات</button>
             `;
         }
-        
-        function requestPersonalityAnalysis() {
-            const input = document.getElementById('messageInput');
-            input.value = 'أريد تحليل شامل لشخصيتي بناءً على محادثاتنا السابقة';
-            sendMessage();
-        }
 
-        // ===== INITIALIZATION =====
+        // ===== INITIALIZATION (Updated) =====
         window.onload = () => {
             // Preload voices
             speechSynthesis.getVoices();
             
-            // Check login
-            if (localStorage.getItem('nafsy_logged_in') === 'true') {
-                document.getElementById('loginPage').classList.remove('active');
+            // Apply saved theme
+            applyTheme();
+            
+            const hasApiKey = !!localStorage.getItem('nafsy_api_key');
+            const hasPin = !!localStorage.getItem('nafsy_pin');
+            const isLoggedIn = localStorage.getItem('nafsy_logged_in') === 'true';
+            
+            // Hide login page initially, determine correct start page
+            document.getElementById('loginPage').classList.remove('active');
+            
+            if (!hasApiKey) {
+                // New user — show API key setup first
+                document.getElementById('apiKeyPage').classList.add('active');
+            } else if (!hasPin) {
+                // Has key but no PIN yet — show PIN setup
+                document.getElementById('pinSetupPage').classList.add('active');
+            } else if (isLoggedIn) {
+                // Already logged in
                 document.getElementById('chatPage').classList.add('active');
                 loadCurrentChat();
                 renderResources();
                 renderProfile();
+                checkMoodCheckin();
+            } else {
+                // Has key and PIN — show login
+                document.getElementById('loginPage').classList.add('active');
             }
         };
     </script>
+    <!-- BREATHING PAGE -->
+    <div class="page" id="breathingPage">
+        <div class="app-header">
+            <div class="header-avatar">
+                <div class="avatar-eyes"><div class="eye"></div><div class="eye"></div></div>
+            </div>
+            <div class="header-info">
+                <h1>تمارين التنفس</h1>
+                <span class="header-status">استرخِ وتنفس</span>
+            </div>
+        </div>
+        <div class="breathing-content">
+            <div class="breathing-exercises-list">
+                <button class="breathing-exercise-btn" id="exBtn478" onclick="selectBreathingExercise('478')">
+                    <div>تنفس 4-7-8</div>
+                    <div class="ex-sub">شهيق 4 ثوانٍ • حبس 7 ثوانٍ • زفير 8 ثوانٍ</div>
+                </button>
+                <button class="breathing-exercise-btn" id="exBtnBox" onclick="selectBreathingExercise('box')">
+                    <div>تنفس الصندوق</div>
+                    <div class="ex-sub">شهيق 4 • حبس 4 • زفير 4 • حبس 4</div>
+                </button>
+                <button class="breathing-exercise-btn" id="exBtnCalm" onclick="selectBreathingExercise('calm')">
+                    <div>تنفس الهدوء</div>
+                    <div class="ex-sub">شهيق 5 ثوانٍ • زفير 5 ثوانٍ</div>
+                </button>
+            </div>
+            <div class="breathing-circle-area">
+                <svg class="breathing-svg" viewBox="0 0 220 220">
+                    <circle class="breathing-circle-outer" cx="110" cy="110" r="100"/>
+                    <circle class="breathing-circle-inner" id="breathInner" cx="110" cy="110" r="50"/>
+                    <circle class="breathing-circle-ring" id="breathRing" cx="110" cy="110" r="85"
+                        stroke-dasharray="534" stroke-dashoffset="534"/>
+                </svg>
+                <div class="breathing-phase-label" id="breathPhaseLabel">اختر تمريناً</div>
+                <div class="breathing-timer" id="breathTimer">-</div>
+                <div class="breathing-cycles" id="breathCycles"></div>
+            </div>
+            <button class="breathing-start-btn" id="breathStartBtn" onclick="toggleBreathing()">ابدأ</button>
+        </div>
+        <div class="bottom-nav">
+            <button class="nav-item" onclick="showPage('chat')" data-page="chat"><span class="nav-icon">💬</span><span class="nav-label">المحادثة</span></button>
+            <button class="nav-item" onclick="showPage('resources')" data-page="resources"><span class="nav-icon">📚</span><span class="nav-label">الموارد</span></button>
+            <button class="nav-item active" onclick="showPage('breathing')" data-page="breathing"><span class="nav-icon">🫁</span><span class="nav-label">تنفس</span></button>
+            <button class="nav-item" onclick="showPage('journal')" data-page="journal"><span class="nav-icon">📓</span><span class="nav-label">يومياتي</span></button>
+            <button class="nav-item" onclick="showPage('profile')" data-page="profile"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+        </div>
+    </div>
+
+    <!-- JOURNAL PAGE -->
+    <div class="page" id="journalPage">
+        <div class="app-header">
+            <div class="header-avatar">
+                <div class="avatar-eyes"><div class="eye"></div><div class="eye"></div></div>
+            </div>
+            <div class="header-info">
+                <h1>يومياتي</h1>
+                <span class="header-status">افكارك الخاصة</span>
+            </div>
+        </div>
+        <div class="journal-content">
+            <button class="journal-new-btn" onclick="openJournalEditor()">✏️ كتابة تدوينة جديدة</button>
+            <div id="journalList"></div>
+        </div>
+        <div class="bottom-nav">
+            <button class="nav-item" onclick="showPage('chat')" data-page="chat"><span class="nav-icon">💬</span><span class="nav-label">المحادثة</span></button>
+            <button class="nav-item" onclick="showPage('resources')" data-page="resources"><span class="nav-icon">📚</span><span class="nav-label">الموارد</span></button>
+            <button class="nav-item" onclick="showPage('breathing')" data-page="breathing"><span class="nav-icon">🫁</span><span class="nav-label">تنفس</span></button>
+            <button class="nav-item active" onclick="showPage('journal')" data-page="journal"><span class="nav-icon">📓</span><span class="nav-label">يومياتي</span></button>
+            <button class="nav-item" onclick="showPage('profile')" data-page="profile"><span class="nav-icon">👤</span><span class="nav-label">ملفي</span></button>
+        </div>
+    </div>
+
+    <!-- Journal Editor -->
+    <div class="journal-editor" id="journalEditor">
+        <div class="journal-editor-header">
+            <span class="journal-editor-title">✏️ تدوينة جديدة</span>
+            <button class="menu-close" onclick="closeJournalEditor()">✕</button>
+        </div>
+        <input type="text" class="journal-input-title" id="journalTitle" placeholder="العنوان (اختياري)">
+        <div class="journal-mood-selector" id="journalMoodSelector">
+            <button class="journal-mood-btn" onclick="selectJournalMood('😔')" data-mood="😔">😔</button>
+            <button class="journal-mood-btn" onclick="selectJournalMood('😟')" data-mood="😟">😟</button>
+            <button class="journal-mood-btn" onclick="selectJournalMood('😐')" data-mood="😐">😐</button>
+            <button class="journal-mood-btn" onclick="selectJournalMood('��')" data-mood="😊">😊</button>
+            <button class="journal-mood-btn" onclick="selectJournalMood('😄')" data-mood="😄">😄</button>
+        </div>
+        <textarea class="journal-textarea" id="journalBody" placeholder="اكتب أفكارك وأحاسيسك هنا..."></textarea>
+        <div class="journal-editor-actions">
+            <button class="journal-save-btn" onclick="saveJournalEntry()">💾 حفظ</button>
+            <button class="journal-ai-btn" onclick="sendJournalToChat()">🤖 اكتب مع نفسي</button>
+        </div>
+    </div>
+
+    <!-- Journal Viewer -->
+    <div class="journal-viewer" id="journalViewer">
+        <div class="journal-view-header">
+            <div>
+                <div class="journal-view-date" id="viewEntryDate"></div>
+                <div class="journal-view-title" id="viewEntryTitle"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                <span class="journal-view-mood" id="viewEntryMood"></span>
+                <button class="menu-close" onclick="closeJournalViewer()">✕</button>
+            </div>
+        </div>
+        <div class="journal-view-body" id="viewEntryBody"></div>
+        <button class="journal-ai-btn" style="width:100%;padding:14px;font-size:15px;" onclick="sendViewedEntryToChat()">🤖 ناقش هذه التدوينة مع نفسي</button>
+    </div>
+
+    <!-- Crisis Modal -->
+    <div class="crisis-modal" id="crisisModal">
+        <div class="crisis-content">
+            <div class="crisis-heart">💙</div>
+            <div class="crisis-title">أنا سامعك وموجود معك</div>
+            <div class="crisis-message">
+                إذا كنت تمر بوقت صعب جداً، هذه الأرقام يمكن أن تساعد
+            </div>
+            <div class="crisis-contacts">
+                <div class="crisis-contact-item">📞 <strong>نجدة الطفل:</strong> 116</div>
+                <div class="crisis-contact-item">🚨 <strong>الطوارئ:</strong> 911 / 999 / 112</div>
+                <div class="crisis-contact-item">💬 <strong>الدعم النفسي:</strong> تواصل مع خط الدعم النفسي في بلدك</div>
+            </div>
+            <div class="crisis-actions">
+                <button class="crisis-btn-primary" onclick="continueToChatFromCrisis()">تحدث معي أنا</button>
+                <button class="crisis-btn-secondary" onclick="closeCrisisModal()">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <span class="settings-title">⚙️ الإعدادات</span>
+            <button class="menu-close" onclick="closeSettings()">✕</button>
+        </div>
+        <div class="settings-body">
+            <div class="settings-section-title">الأمان</div>
+            <div class="settings-input-group">
+                <div class="settings-input-label">تغيير رمز الدخول (4 أرقام)</div>
+                <input type="password" class="settings-input" id="newPinInput" placeholder="الرمز الجديد" maxlength="4" inputmode="numeric">
+                <input type="password" class="settings-input" id="confirmPinInput" placeholder="تأكيد الرمز" maxlength="4" inputmode="numeric">
+                <button class="settings-save-btn" onclick="changePin()">حفظ الرمز</button>
+                <p id="pinChangeMsg" style="font-size:13px;margin-top:8px;display:none;"></p>
+            </div>
+            <div class="settings-input-group" style="margin-top:8px;">
+                <div class="settings-input-label">مفتاح API الحالي</div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <input type="text" class="settings-input" id="apiKeyDisplay" style="flex:1;margin-bottom:0;" readonly dir="ltr">
+                    <button class="settings-save-btn" onclick="changeApiKey()" style="white-space:nowrap;">تغيير</button>
+                </div>
+                <div id="newApiKeySection" style="display:none;margin-top:10px;">
+                    <input type="text" class="settings-input" id="newApiKeyInput" placeholder="المفتاح الجديد (AIzaSy...)" dir="ltr">
+                    <button class="settings-save-btn" onclick="saveNewApiKey()">حفظ المفتاح</button>
+                </div>
+            </div>
+
+            <div class="settings-section-title" style="margin-top:24px;">المظهر</div>
+            <div class="settings-item" onclick="toggleTheme()">
+                <div class="settings-item-left">
+                    <span class="settings-item-icon">🌙</span>
+                    <div>
+                        <div class="settings-item-text">الوضع الليلي / النهاري</div>
+                        <div class="settings-item-sub" id="themeLabel">الوضع الحالي: داكن</div>
+                    </div>
+                </div>
+                <button class="toggle-switch" id="themeToggle"></button>
+            </div>
+
+            <div class="settings-section-title" style="margin-top:24px;">البيانات</div>
+            <div class="settings-item" onclick="exportData()">
+                <div class="settings-item-left">
+                    <span class="settings-item-icon">📤</span>
+                    <div class="settings-item-text">تصدير بياناتي</div>
+                </div>
+                <span class="settings-item-right">←</span>
+            </div>
+            <div class="settings-item" onclick="clearAllData()" style="color:#ff5555;">
+                <div class="settings-item-left">
+                    <span class="settings-item-icon">🗑️</span>
+                    <div class="settings-item-text" style="color:#ff5555;">حذف كل البيانات</div>
+                </div>
+                <span class="settings-item-right" style="color:#ff5555;">←</span>
+            </div>
+            <div class="settings-item" onclick="logout(); closeSettings();" style="margin-top:8px;">
+                <div class="settings-item-left">
+                    <span class="settings-item-icon">🚪</span>
+                    <div class="settings-item-text">تسجيل الخروج</div>
+                </div>
+                <span class="settings-item-right">←</span>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
